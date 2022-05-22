@@ -1,0 +1,27 @@
+//created on: May 22, 2022
+package com.sbnz;
+
+//list any import classes here.
+
+import com.sbnz.physio.facts.Pain;
+
+//declare any global variables here
+
+
+
+
+rule "Classify pain - Cervical Mechanical"
+
+    when
+        $p : Pain($symptoms: symptoms, $precursors: precursors)
+        Pain.Symptoms(this == Pain.Symptoms.NECK_PAIN_EXTENDING_INTO_NAPE) from $symptoms
+		Pain.Precursors(this == Pain.Precursors.BAD_POSTURE) from $precursors
+        Pain.Precursors(this == Pain.Precursors.BACK_STRAINING_PROFESSION) from $precursors
+        
+    then
+        $p.setPainLocalization(Pain.PainLocalization.CERVICAL);
+        $p.setPainType(Pain.PainType.MECHANICAL);
+        update($p);
+
+end
+

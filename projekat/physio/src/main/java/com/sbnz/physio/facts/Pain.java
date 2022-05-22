@@ -22,7 +22,7 @@ public class Pain {
 		NEUROLOGICAL, MECHANICAL
 	}
 	
-	public enum Symptom {
+	public enum Symptoms {
 		MUSCLE_SPASM,
 		REST_PAIN,
 		MOVEMENT_PAIN,
@@ -83,19 +83,27 @@ public class Pain {
 	private Long id;
 	private PainType painType;
 	private PainLocalization painLocalization;
-	private List<Symptom> symptoms = new ArrayList<Symptom>();
+	private List<Symptoms> symptoms = new ArrayList<Symptoms>();
+	private List<Precursors>  precursors = new ArrayList<Precursors>();
 	
 
 	@Override
 	public String toString() {
 		String symptomsString = "";
-		for (Symptom s : this.symptoms) {
+		for (Symptoms s : this.symptoms) {
 			String symptomString = "\n\t-" + s.toString();
 			symptomsString += symptomString;
 		}
 		
+		String precursorsString = "";
+		for (Precursors s : this.precursors) {
+			String precursorString = "\n\t-" + s.toString();
+			precursorsString += precursorString;
+		}
+		
 				
-		return "Pain Type: " + painType + "\nPain Localization: " + painLocalization + "\nSymptoms: " + symptomsString;
+		return "Pain Type: " + painType + "\nPain Localization: " + painLocalization 
+						+ "\nSymptoms: " + symptomsString + "\nPrecursors: " + precursorsString;
 	}
 
 
@@ -125,6 +133,10 @@ public class Pain {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	
+	public boolean hasSymptom(Symptoms symptom) {
+		return this.symptoms.contains(symptom);
 	}
 	
 	

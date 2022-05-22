@@ -15,6 +15,9 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<kie.version>7.17.0.Final</kie.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -43,14 +46,43 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Dodate zavisnosti potrebne za Drools -->	        
+        <dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-ci</artifactId>
+			<version>${kie.version}</version>
+		</dependency>
+		<dependency>
+            <groupId>org.kie</groupId>
+            <artifactId>kie-spring</artifactId>
+            <version>${kie.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+	  		<groupId>com.sbnz</groupId>
+	  		<artifactId>physio-kjar</artifactId>
+	  		<type>jar</type>
+	  		<version>0.0.1-SNAPSHOT</version>
+  		</dependency>
+        
 	</dependencies>
+
 
 	<build>
 		<plugins>
