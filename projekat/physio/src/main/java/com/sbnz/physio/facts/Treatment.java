@@ -18,4 +18,9 @@ public class Treatment {
 	private Diagnosis diagnosis;
 	private Patient patient;
 	private List<Therapy> therapies = new ArrayList<>();
+	private List<Excercise> excerciseRoutine = new ArrayList<Excercise>();
+	
+	public void addExcercise(Excercise excercise) {
+		this.excerciseRoutine.add(excercise);
+	}
 }

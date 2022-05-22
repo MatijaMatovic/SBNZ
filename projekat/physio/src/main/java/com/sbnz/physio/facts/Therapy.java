@@ -17,11 +17,10 @@ public class Therapy {
 		MAGNETOTHERAPY,
 		NECK_COLAR,
 		PARAFFIN,
-		TENS_ELECTROTHERAPY
-		
+		TENS_ELECTROTHERAPY,
+		REST
 	}
-	
-	
+
 	private TherapyType therapyType;
 	private Integer sessions;
 	private String locality;
