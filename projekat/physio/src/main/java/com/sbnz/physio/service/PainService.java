@@ -4,6 +4,7 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Service;
 
+import com.sbnz.physio.facts.Diagnosis;
 import com.sbnz.physio.facts.Pain;
 
 @Service
@@ -14,14 +15,17 @@ public class PainService {
 		this.kieContainer = kieContainer;
 	}
 	
-	public Pain classifyPain(Pain pain) {
-		KieSession kieSession = kieContainer.newKieSession();
+	public Diagnosis classifyPain(Pain pain) {
+		KieSession kieSession = kieContainer.newKieSession("physio-rules");
 		
+		Diagnosis diagnosis = new Diagnosis();
+
 		kieSession.insert(pain);
+		kieSession.insert(diagnosis);
 		kieSession.fireAllRules();
-		kieSession.dispose();
 		
-		return pain;
+		return diagnosis;
+		
 	}
 
 }
