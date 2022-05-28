@@ -4,6 +4,8 @@ package com.sbnz;
 //list any import classes here.
 
 import com.sbnz.physio.facts.Pain;
+import com.sbnz.physio.facts.Diagnosis;
+import java.util.Date;
 
 //declare any global variables here
 
@@ -13,15 +15,163 @@ import com.sbnz.physio.facts.Pain;
 rule "Classify pain - Cervical Mechanical"
 
     when
-        $p : Pain($symptoms: symptoms, $precursors: precursors)
+    	$d : Diagnosis(illness == null)
+        $p : Pain(
+        	painType == null, painLocalization == null,
+        	$symptoms: symptoms
+        )
         Pain.Symptoms(this == Pain.Symptoms.NECK_PAIN_EXTENDING_INTO_NAPE) from $symptoms
-		Pain.Precursors(this == Pain.Precursors.BAD_POSTURE) from $precursors
-        Pain.Precursors(this == Pain.Precursors.BACK_STRAINING_PROFESSION) from $precursors
-        
+        Number($value: intValue > 1) from accumulate(
+        	Pain.Symptoms(
+        			$t: this, 
+        			this == Pain.Symptoms.MUSCLE_SPASM ||
+        			this == Pain.Symptoms.MOVEMENT_PAIN ||
+        			this == Pain.Symptoms.EXTENDED_POSITION_PAIN
+        		) from $symptoms, 
+        	count($t)
+        )
     then
-        $p.setPainLocalization(Pain.PainLocalization.CERVICAL);
-        $p.setPainType(Pain.PainType.MECHANICAL);
-        update($p);
-
+        modify($p) { 
+        	setPainLocalization(Pain.PainLocalization.CERVICAL), 
+        	setPainType(Pain.PainType.MECHANICAL); 
+        }
+        
 end
 
+
+
+rule "Classify pain - Cervical Neurological"
+
+    when
+    	$d : Diagnosis(illness == null)
+        $p : Pain(
+        	painType == null, painLocalization == null,
+        	$symptoms: symptoms
+        )
+        Number($value: intValue > 1) from accumulate(
+        	Pain.Symptoms(
+        			$t: this, 
+        			this == Pain.Symptoms.SHARP_NON_EXTENDING_NECK_PAIN ||
+        			this == Pain.Symptoms.SHOULDER_AND_ARM_ELECTRIC_PAIN ||
+        			this == Pain.Symptoms.ARM_AND_HAND_NUMBNESS ||
+        			this == Pain.Symptoms.WEAK_UNCOORDINATED_HANDS
+        		) from $symptoms, 
+        	count($t)
+        )
+    then
+        modify($p) { 
+        	setPainLocalization(Pain.PainLocalization.CERVICAL), 
+        	setPainType(Pain.PainType.NEUROLOGICAL); 
+        }
+        
+end
+
+
+
+rule "Classify pain - Thoracal Mechanical"
+
+    when
+    	$d : Diagnosis(illness == null)
+        $p : Pain(
+        	painType == null, painLocalization == null,
+        	$symptoms: symptoms
+        )
+        Number($value: intValue > 1) from accumulate(
+        	Pain.Symptoms(
+        			$t: this, 
+        			this == Pain.Symptoms.NECK_TO_BACK_PAIN ||
+        			this == Pain.Symptoms.SCAPULA_PAIN ||
+        			this == Pain.Symptoms.MUSCLE_SPASM
+        		) from $symptoms, 
+        	count($t)
+        )
+    then
+        modify($p) { 
+        	setPainLocalization(Pain.PainLocalization.THORACAL), 
+        	setPainType(Pain.PainType.MECHANICAL); 
+        }
+        
+end
+
+
+
+rule "Classify pain - Thoracal Neurological"
+
+    when
+    	$d : Diagnosis(illness == null)
+        $p : Pain(
+        	painType == null, painLocalization == null,
+        	$symptoms: symptoms
+        )
+        Number($value: intValue > 2) from accumulate(
+        	Pain.Symptoms(
+        			$t: this, 
+        			this == Pain.Symptoms.SHARP_THORACAL_PAIN ||
+        			this == Pain.Symptoms.THORACAL_NUMBNESS ||
+        			this == Pain.Symptoms.LEG_PAIN_AND_SPASM ||
+        			this == Pain.Symptoms.MOVEMENT_PAIN
+        		) from $symptoms, 
+        	count($t)
+        )
+    then
+        modify($p) { 
+        	setPainLocalization(Pain.PainLocalization.THORACAL), 
+        	setPainType(Pain.PainType.NEUROLOGICAL); 
+        }
+        
+end
+
+
+
+rule "Classify pain - Lumbal Mechanical"
+
+    when
+    	$d : Diagnosis(illness == null)
+        $p : Pain(
+        	painType == null, painLocalization == null,
+        	$symptoms: symptoms
+        )
+        
+        Pain.Symptoms(this == Pain.Symptoms.LOIN_PAIN) from $symptoms
+        Pain.Symptoms(this == Pain.Symptoms.EXTERTION_PAIN) from $symptoms
+        Pain.Symptoms(this == Pain.Symptoms.MOVEMENT_PAIN) from $symptoms
+    then
+        modify($p) { 
+        	setPainLocalization(Pain.PainLocalization.LUMBAL), 
+        	setPainType(Pain.PainType.MECHANICAL); 
+        }
+        
+end
+
+
+
+rule "Classify pain - Lumbal Neurological"
+
+    when
+    	$d : Diagnosis(illness == null)
+        $p : Pain(
+        	painType == null, painLocalization == null,
+        	$symptoms: symptoms
+        )
+        Number($value: intValue > 3) from accumulate(
+        	Pain.Symptoms(
+        			$t: this, 
+        			this == Pain.Symptoms.MOVEMENT_PAIN ||
+        			this == Pain.Symptoms.REST_PAIN ||
+        			this == Pain.Symptoms.LUMBAL_SPINE_DEGENERATION ||
+        			this == Pain.Symptoms.SHARP_LUMBAL_SACRAL_PAIN ||
+        			this == Pain.Symptoms.LEG_SPREADING_SYMPTOMS ||
+        			this == Pain.Symptoms.LUMBAL_SACRAL_IMMOBILITY ||
+        			this == Pain.Symptoms.LEG_IMMOBILITY
+        		) from $symptoms, 
+        	count($t)
+        )
+    then
+        modify($p) { 
+        	setPainLocalization(Pain.PainLocalization.LUMBAL), 
+        	setPainType(Pain.PainType.NEUROLOGICAL); 
+        }
+        
+end
+
+    	

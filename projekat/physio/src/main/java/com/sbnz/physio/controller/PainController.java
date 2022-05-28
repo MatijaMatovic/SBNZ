@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sbnz.physio.facts.Diagnosis;
 import com.sbnz.physio.facts.Pain;
 import com.sbnz.physio.service.PainService;
 
@@ -20,19 +21,18 @@ public class PainController {
 	PainService painService;
 	
 	@GetMapping(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Pain> testWorks() {
+	public ResponseEntity<Diagnosis> testWorks() {
 		Pain testPain = new Pain();
 		
-		testPain.getSymptoms().add(Pain.Symptoms.NECK_PAIN_EXTENDING_INTO_NAPE);
-		testPain.getPrecursors().add(Pain.Precursors.BACK_STRAINING_PROFESSION);
-		testPain.getPrecursors().add(Pain.Precursors.BAD_POSTURE);
+		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
+		testPain.getSymptoms().add(Pain.Symptoms.SCAPULA_PAIN);
 		
-		painService.classifyPain(testPain);
+		Diagnosis diagnosis = painService.classifyPain(testPain);
 		
 		System.out.println("Localized at: " + testPain.getPainLocalization());
 		System.out.println("Type: " + testPain.getPainType());
 		
-		return new ResponseEntity<Pain>(testPain, HttpStatus.OK);
+		return new ResponseEntity<>(diagnosis, HttpStatus.OK);
 	}
 
 }
