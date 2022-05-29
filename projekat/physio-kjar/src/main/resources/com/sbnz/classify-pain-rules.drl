@@ -3,9 +3,9 @@ package com.sbnz;
 
 //list any import classes here.
 
-import com.sbnz.physio.facts.Pain;
-import com.sbnz.physio.facts.Diagnosis;
-import java.util.Date;
+import com.sbnz.physio.facts.*;
+import java.time.LocalDate;
+import java.util.List;
 
 //declare any global variables here
 
@@ -173,5 +173,35 @@ rule "Classify pain - Lumbal Neurological"
         }
         
 end
+
+
+
+rule "Set diagnosis - Acute cervical syndrome"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.CERVICAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this == Pain.Precursors.INTENSE_SUDDEN_MOVEMENT ||
+			this == Pain.Precursors.HOT_COLD_TEMPERATURE_CHANGE ||
+			this == Pain.Precursors.COLD_TEMPERATURES
+		) from $precursors
+		List(size < 2) from collect(
+			Diagnosis(
+				illness == Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME, 
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(6))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Dijagnostifikovano: ACUTE CERVICAL SYNDROME");
+		modify ($d) { setIllness(Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME); }
+end
+
+		
 
     	

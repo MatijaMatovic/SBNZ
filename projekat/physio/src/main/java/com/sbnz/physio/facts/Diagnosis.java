@@ -1,6 +1,6 @@
 package com.sbnz.physio.facts;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -34,7 +34,7 @@ public class Diagnosis {
 	
 	@EqualsAndHashCode.Include
 	private Long id;
-	private Date diagnosisDate;
+	private LocalDate diagnosisDate;
 	private Pain pain;
 	private Illness illness;
 	private PainIntensity painIntensity;

@@ -24,13 +24,17 @@ public class PainController {
 	public ResponseEntity<Diagnosis> testWorks() {
 		Pain testPain = new Pain();
 		
+		testPain.getSymptoms().add(Pain.Symptoms.NECK_PAIN_EXTENDING_INTO_NAPE);
 		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
-		testPain.getSymptoms().add(Pain.Symptoms.SCAPULA_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.EXTENDED_POSITION_PAIN);
+		
+		testPain.getPrecursors().add(Pain.Precursors.COLD_TEMPERATURES);
 		
 		Diagnosis diagnosis = painService.classifyPain(testPain);
 		
 		System.out.println("Localized at: " + testPain.getPainLocalization());
 		System.out.println("Type: " + testPain.getPainType());
+		System.out.println("\n\nDiagnosis:\n\n" + diagnosis);
 		
 		return new ResponseEntity<>(diagnosis, HttpStatus.OK);
 	}
