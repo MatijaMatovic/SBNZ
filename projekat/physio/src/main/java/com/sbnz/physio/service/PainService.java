@@ -27,14 +27,21 @@ public class PainService {
 		
 		Diagnosis prevDiagnosis1 = new Diagnosis();
 		prevDiagnosis1.setDiagnosisDate(LocalDate.now());
-		prevDiagnosis1.setIllness(Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME);
+		//test za PRIMARY_CERVICAL_SYNDROME B
+		//prevDiagnosis1.setIllness(Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME);
+		
+		//test za Cervical spondylosis A
+		prevDiagnosis1.setIllness(Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME);
+		
 		
 		Diagnosis prevDiagnosis2 = new Diagnosis();
 		prevDiagnosis2.setDiagnosisDate(LocalDate.now());
 		prevDiagnosis2.setIllness(Diagnosis.Illness.LUMBAGO);
 		
 		patient.addDiagnosis(prevDiagnosis1);
-		patient.addDiagnosis(prevDiagnosis2);
+		patient.addDiagnosis(prevDiagnosis1);
+		//patient.addDiagnosis(prevDiagnosis1); //za test za Cervical spondylosis B ovu liniju zakomentarisati
+		patient.addDiagnosis(prevDiagnosis2); 
 
 		kieSession.insert(pain);
 		kieSession.insert(diagnosis);

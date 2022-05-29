@@ -24,11 +24,96 @@ public class PainController {
 	public ResponseEntity<Diagnosis> testWorks() {
 		Pain testPain = new Pain();
 		
+		/*testPain.getSymptoms().add(Pain.Symptoms.NECK_PAIN_EXTENDING_INTO_NAPE);
+		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
+		testPain.getSymptoms().add(Pain.Symptoms.EXTENDED_POSITION_PAIN);
+		
+		testPain.getPrecursors().add(Pain.Precursors.COLD_TEMPERATURES);*/
+		
+		/*//test za Primary cervical syndrome A
+		testPain.getSymptoms().add(Pain.Symptoms.NECK_PAIN_EXTENDING_INTO_NAPE);
+		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
+		testPain.getSymptoms().add(Pain.Symptoms.EXTENDED_POSITION_PAIN);
+		testPain.getPrecursors().add(Pain.Precursors.PROLONGED_UNCONFORTABLE_POSITION);
+		testPain.getPrecursors().add(Pain.Precursors.BAD_POSTURE);*/
+		
+		/*//test za Primary cervical syndrome B
 		testPain.getSymptoms().add(Pain.Symptoms.NECK_PAIN_EXTENDING_INTO_NAPE);
 		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
 		testPain.getSymptoms().add(Pain.Symptoms.EXTENDED_POSITION_PAIN);
 		
-		testPain.getPrecursors().add(Pain.Precursors.COLD_TEMPERATURES);
+		testPain.getPrecursors().add(Pain.Precursors.COLD_TEMPERATURES);*/
+		
+		
+		/*//test za Cervical spondylosis A
+		testPain.getSymptoms().add(Pain.Symptoms.NECK_PAIN_EXTENDING_INTO_NAPE);
+		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
+		testPain.getSymptoms().add(Pain.Symptoms.EXTENDED_POSITION_PAIN);
+		testPain.getPrecursors().add(Pain.Precursors.PROLONGED_DEHIDRATATION);*/
+		
+		
+		//test za Cervical spondylosis B
+		/*testPain.getSymptoms().add(Pain.Symptoms.NECK_PAIN_EXTENDING_INTO_NAPE);
+		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
+		testPain.getSymptoms().add(Pain.Symptoms.EXTENDED_POSITION_PAIN);
+		testPain.getPrecursors().add(Pain.Precursors.MYOGELOSIS);*/
+		
+		//test za Thoracic syndrom A
+		/*testPain.getSymptoms().add(Pain.Symptoms.NECK_TO_BACK_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.SCAPULA_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
+		testPain.getPrecursors().add(Pain.Precursors.BAD_POSTURE);*/
+		
+		
+		//test za Thoracic syndrom B dodati u servisu jos akutni cervikalni i primarni cervikalni
+		/*testPain.getSymptoms().add(Pain.Symptoms.NECK_TO_BACK_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.SCAPULA_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
+		testPain.getPrecursors().add(Pain.Precursors.BACK_EXTERTION);*/
+	
+		
+		//test za Thoracic spondylosis A
+		/*testPain.getSymptoms().add(Pain.Symptoms.NECK_TO_BACK_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.SCAPULA_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
+		testPain.getPrecursors().add(Pain.Precursors.MYOGELOSIS);*/
+		
+		
+		//test za Thoracic spondylosis B
+		/*testPain.getSymptoms().add(Pain.Symptoms.NECK_TO_BACK_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.SCAPULA_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
+		testPain.getSymptoms().add(Pain.Symptoms.RIB_TO_SPINE_JOINT_PAIN);*/
+
+		
+		//test za Thoracic discus hernia A
+		/*testPain.getSymptoms().add(Pain.Symptoms.SHARP_THORACAL_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.THORACAL_NUMBNESS);
+		testPain.getSymptoms().add(Pain.Symptoms.LEG_PAIN_AND_SPASM);
+		testPain.getSymptoms().add(Pain.Symptoms.MOVEMENT_PAIN);*/
+		
+		//test za Thoracic discus hernia B
+		/*testPain.getSymptoms().add(Pain.Symptoms.SHARP_THORACAL_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.THORACAL_NUMBNESS);
+		testPain.getSymptoms().add(Pain.Symptoms.LEG_PAIN_AND_SPASM);
+		testPain.getSymptoms().add(Pain.Symptoms.MOVEMENT_PAIN);*/
+		
+		
+		//test za Lumbal syndrome
+		/*testPain.getSymptoms().add(Pain.Symptoms.LOIN_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.EXTERTION_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.SHARP_LUMBAL_SACRAL_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.MOVEMENT_PAIN);
+		testPain.getPrecursors().add(Pain.Precursors.OBESITY);*/
+		
+		
+		testPain.getSymptoms().add(Pain.Symptoms.REST_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.LUMBAL_SPINE_DEGENERATION);
+		testPain.getSymptoms().add(Pain.Symptoms.MOVEMENT_PAIN); 
+		testPain.getSymptoms().add(Pain.Symptoms.LEG_IMMOBILITY);
+		testPain.getSymptoms().add(Pain.Symptoms.LEG_ELECTRIC_PAIN);
+		//testPain.getPrecursors().add(Pain.Precursors.LACK_PHYSICAL_ACTIVITY);
+		//testPain.getPrecursors().add(Pain.Precursors.BACK_STRAINING_PROFESSION);
 		
 		Diagnosis diagnosis = painService.classifyPain(testPain);
 		

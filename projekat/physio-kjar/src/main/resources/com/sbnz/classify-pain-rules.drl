@@ -207,6 +207,492 @@ rule "Set diagnosis - Acute cervical syndrome"
 		modify($pt) { addDiagnosis($d); }
 end
 
+
+rule "Set diagnosis - Primary cervical syndrome A"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.CERVICAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this == Pain.Precursors.PROLONGED_UNCONFORTABLE_POSITION ||
+			this == Pain.Precursors.BAD_POSTURE ||
+			this == Pain.Precursors.LACK_PHYSICAL_ACTIVITY
+		) from $precursors
+		List(size < 2) from collect(
+			Diagnosis(
+				illness == Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME, 
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(5))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Dijagnostifikovano: PRIMARY CERVICAL SYNDROME A");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Primary cervical syndrome B"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.CERVICAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this != Pain.Precursors.MYOGELOSIS
+		) from $precursors
+		List(size > 2) from collect(
+			Diagnosis(
+				illness == Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME, 
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(5))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Dijagnostifikovano: PRIMARY CERVICAL SYNDROME B");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Cervical spondylosis A"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.CERVICAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this != Pain.Precursors.COLD_TEMPERATURES ||
+			this != Pain.Precursors.HOT_COLD_TEMPERATURE_CHANGE ||
+			this != Pain.Precursors.INTENSE_SUDDEN_MOVEMENT
+		) from $precursors
+		List(size > 2) from collect(
+			Diagnosis(
+				illness == Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME, 
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(5))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Dijagnostifikovano: CERVICAL SPONDYLOSIS A");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.CERVICAL_SPONDYLOSIS),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Cervical spondylosis B"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.CERVICAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this == Pain.Precursors.MYOGELOSIS
+		) from $precursors
+	then
+		System.out.println("Dijagnostifikovano: CERVICAL SPONDYLOSIS B");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.CERVICAL_SPONDYLOSIS),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Cervical discus hernia A"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.NEUROLOGICAL, painLocalization == Pain.PainLocalization.CERVICAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this == Pain.Precursors.INTENSE_SUDDEN_MOVEMENT ||
+			this == Pain.Precursors.NECK_EXTERTION
+		) from $precursors
+	then
+		System.out.println("Dijagnostifikovano: CERVICAL DISCUS HERNIA A");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.CERVICAL_DISCUS_HERNIA),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Cervical discus hernia B"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.NEUROLOGICAL, painLocalization == Pain.PainLocalization.CERVICAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this == Pain.Precursors.INTENSE_SUDDEN_MOVEMENT ||
+			this == Pain.Precursors.NECK_EXTERTION
+		) from $precursors
+		List(size > 3) from collect(
+			Diagnosis(
+				illness == Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME || 
+				illness == Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME ||
+				illness == Diagnosis.Illness.CERVICAL_SPONDYLOSIS ||
+				illness == Diagnosis.Illness.CERVICAL_DISCUS_HERNIA, 
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(12))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Dijagnostifikovano: CERVICAL DISCUS HERNIA B");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.CERVICAL_DISCUS_HERNIA),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Thoracic syndrom A"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.THORACAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this != Pain.Precursors.MYOGELOSIS &&
+			(this == Pain.Precursors.BAD_POSTURE ||
+			this == Pain.Precursors.UNDEVELOPED_THORACAL_MUSCULATURE ||
+			this == Pain.Precursors.KYPHO_SCOLIOSIS)
+		) from $precursors
+	then
+		System.out.println("Dijagnostifikovano: THORACIC SYNDROME A");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.THORACIC_SYNDROME),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Thoracic syndrom B"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.THORACAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this != Pain.Precursors.MYOGELOSIS
+		) from $precursors
+		List(size > 1) from collect(
+			Diagnosis(
+				illness == Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME || 
+				illness == Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME,
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(1))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Dijagnostifikovano: THORACIC SYNDROME B");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.THORACIC_SYNDROME),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Thoracic spondylosis A"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.THORACAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this == Pain.Precursors.MYOGELOSIS
+		) from $precursors
+	then
+		System.out.println("Dijagnostifikovano: THORACIC_SPONDYLOSIS A");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.THORACIC_SPONDYLOSIS),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Thoracic spondylosis B"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.THORACAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Symptoms(
+			this == Pain.Symptoms.RIB_TO_SPINE_JOINT_PAIN ||
+			this == Pain.Symptoms.BREATHING_PAIN
+			
+		) from $symptoms
+	then
+		System.out.println("Dijagnostifikovano: THORACIC_SPONDYLOSIS B");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.THORACIC_SPONDYLOSIS),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Thoracic discus hernia B"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.NEUROLOGICAL, painLocalization == Pain.PainLocalization.THORACAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		List(size > 3) from collect(
+			Diagnosis(
+				illness == Diagnosis.Illness.THORACIC_SYNDROME || 
+				illness == Diagnosis.Illness.THORACIC_SPONDYLOSIS ||
+				illness == Diagnosis.Illness.THORACIC_DISCUS_HERNIA,
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(12))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Dijagnostifikovano: THORACIC_DISCUS_HERNIA B");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.THORACIC_DISCUS_HERNIA),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Thoracic discus hernia A"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.NEUROLOGICAL, painLocalization == Pain.PainLocalization.THORACAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Symptoms(
+			this == Pain.Symptoms.THORACAL_NUMBNESS ||
+			this == Pain.Symptoms.MOVEMENT_PAIN
+			
+		) from $symptoms
+	then
+		System.out.println("Dijagnostifikovano: THORACIC_DISCUS_HERNIA A");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.THORACIC_DISCUS_HERNIA),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+
+
+rule "Set diagnosis - Lumbal syndrome"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.LUMBAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this == Pain.Precursors.OBESITY 
+			
+		) from $precursors
+		Pain.Symptoms(
+			this == Pain.Symptoms.MOVEMENT_PAIN ||
+			this == Pain.Symptoms.SHARP_LUMBAL_SACRAL_PAIN
+			
+		) from $symptoms
+		List(size < 2) from collect(
+			Diagnosis(
+				illness == Diagnosis.Illness.LUMBAL_SYNDROME,
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(12))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Dijagnostifikovano: LUMBAL_SYNDROME");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.LUMBAL_SYNDROME),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Lumbago A"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.LUMBAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Precursors(
+			this == Pain.Precursors.LACK_PHYSICAL_ACTIVITY ||
+			this == Pain.Precursors.BACK_STRAINING_PROFESSION
+			
+		) from $precursors
+	then
+		System.out.println("Dijagnostifikovano: LUMBAGO A");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.LUMBAGO),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Lumbago B"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.LUMBAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		List(size > 2) from collect(
+			Diagnosis(
+				illness == Diagnosis.Illness.LUMBAGO, 
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(5))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Dijagnostifikovano: LUMBAGO B");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.LUMBAGO),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Lumbal discus hernia B"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.NEUROLOGICAL, painLocalization == Pain.PainLocalization.LUMBAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		List(size > 3) from collect(
+			Diagnosis(
+				illness == Diagnosis.Illness.LUMBAGO ||
+				illness == Diagnosis.Illness.LUMBAL_SYNDROME, 
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(12))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Dijagnostifikovano: LUMBAL DISCUS HERNIA B");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.LUMBAL_DISCUS_HERNIA),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Lumbal discus hernia A"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.NEUROLOGICAL, painLocalization == Pain.PainLocalization.LUMBAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Symptoms(
+			this == Pain.Symptoms.LEG_ELECTRIC_PAIN ||
+			this == Pain.Symptoms.LEG_TINGLING_BURNING ||
+			this == Pain.Symptoms.LEG_SPREADING_SYMPTOMS
+		) from $symptoms
+	then
+		System.out.println("Dijagnostifikovano: LUMBAL_DISCUS_HERNIA A");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.LUMBAL_DISCUS_HERNIA),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set diagnosis - Sciatica"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(illness == null)
+		$p : Pain(
+			painType == Pain.PainType.NEUROLOGICAL, painLocalization == Pain.PainLocalization.LUMBAL,
+			$symptoms: symptoms, $precursors: precursors
+		)
+		Pain.Symptoms(
+			this == Pain.Symptoms.LEG_SPREADING_SYMPTOMS
+		) from $symptoms
+	then
+		System.out.println("Dijagnostifikovano: SCIATICA");
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.SCIATICA),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+
+
+
 		
 
     	
