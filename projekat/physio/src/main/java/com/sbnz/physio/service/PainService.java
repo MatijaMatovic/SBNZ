@@ -31,7 +31,7 @@ public class PainService {
 		
 		Diagnosis prevDiagnosis2 = new Diagnosis();
 		prevDiagnosis2.setDiagnosisDate(LocalDate.now());
-		prevDiagnosis2.setIllness(Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME);
+		prevDiagnosis2.setIllness(Diagnosis.Illness.LUMBAGO);
 		
 		patient.addDiagnosis(prevDiagnosis1);
 		patient.addDiagnosis(prevDiagnosis2);
@@ -40,6 +40,8 @@ public class PainService {
 		kieSession.insert(diagnosis);
 		kieSession.insert(patient);
 		kieSession.fireAllRules();
+		
+		System.out.println("Patient: \n" + patient);
 		
 		return diagnosis;
 		

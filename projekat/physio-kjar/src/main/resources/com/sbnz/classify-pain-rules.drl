@@ -194,12 +194,17 @@ rule "Set diagnosis - Acute cervical syndrome"
 			Diagnosis(
 				illness == Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME, 
 				$date: diagnosisDate,
-				$date.isAfter(LocalDate.now().minusMonths(6))
+				$date.isAfter(LocalDate.now().minusMonths(5))
 			) from $diagnoses
 		)
 	then
 		System.out.println("Dijagnostifikovano: ACUTE CERVICAL SYNDROME");
-		modify ($d) { setIllness(Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME); }
+		modify ($d) { 
+			setIllness(Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now());
+		}
+		modify($pt) { addDiagnosis($d); }
 end
 
 		
