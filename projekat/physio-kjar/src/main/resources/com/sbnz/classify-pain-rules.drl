@@ -775,6 +775,32 @@ rule "Set pain intensity - Worsening"
 		modify($pt) { addDiagnosis($d); }
 end
 
+rule "Set pain intensity"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(painIntensity == null, $currentIllness: illness)
+		$p : Pain(
+			$simplePainIntensity: simplePainIntensity
+		)
+		List(size > 0) from collect(
+			Diagnosis(
+				$painIntensity: painIntensity,
+				$painIntensity.ordinal() > $simplePainIntensity.ordinal(),
+				$diagnosisIllness: illness,
+				$diagnosisIllness == $currentIllness,
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(3))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Klinicka slika: Dijagnostifikovana");
+		modify ($d) { 
+			setPainIntensity(Diagnosis.PainIntensity.values()[$simplePainIntensity.ordinal()]);
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
 
 
 
