@@ -27,13 +27,9 @@ public class PainService {
 		Patient patient = new Patient();
 		
 		Diagnosis prevDiagnosis1 = new Diagnosis();
-		prevDiagnosis1.setDiagnosisDate(LocalDate.now());
-		//test za PRIMARY_CERVICAL_SYNDROME B
-		prevDiagnosis1.setIllness(Diagnosis.Illness.LUMBAL_DISCUS_HERNIA);
-		prevDiagnosis1.setPainIntensity(PainIntensity.STRONG);
-		
-		//test za Cervical spondylosis A
-		prevDiagnosis1.setIllness(Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME);
+		prevDiagnosis1.setDiagnosisDate(LocalDate.now().minusMonths(1));
+		prevDiagnosis1.setIllness(Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME);
+		prevDiagnosis1.setPainIntensity(PainIntensity.MEDIUM);
 		
 		
 		Diagnosis prevDiagnosis2 = new Diagnosis();
