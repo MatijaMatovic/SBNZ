@@ -669,7 +669,7 @@ rule "Set pain intensity - No previous conditions"
 		)
 		not Diagnosis(
 				$painIntensity: painIntensity,
-				$painIntensity.ordinal() >= $simplePainIntensity.ordinal(),
+				$painIntensity.ordinal() <= $simplePainIntensity.ordinal(),
 				$diagnosisIllness: illness,
 				$diagnosisIllness == $currentIllness,
 				$date: diagnosisDate,
@@ -695,7 +695,7 @@ rule "Set pain intensity - Previous conditions"
 		)
 		Diagnosis(
 				$painIntensity: painIntensity,
-				$painIntensity.ordinal() >= $simplePainIntensity.ordinal(),
+				$painIntensity.ordinal() <= $simplePainIntensity.ordinal(),
 				$diagnosisIllness: illness,
 				$diagnosisIllness == $currentIllness,
 				$date: diagnosisDate,
@@ -710,5 +710,115 @@ rule "Set pain intensity - Previous conditions"
 end
 
 		
+rule "Set therapy - Acute Cervical Syndrome - Medium to Mild"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.MILD || painIntensity == Diagnosis.PainIntensity.MEDIUM, 
+			illness == Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Therapy t1 = new Therapy(
+			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
+			10, "Vratni deo"
+		);
+		Therapy t2 = new Therapy(
+			Therapy.TherapyType.MASSAGE,
+			10, "Vratni i rameni pojas"
+		);
+		Therapy t3 = new Therapy(
+			Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT,
+			10, "Vratni i rameni pojas"
+		);
+		Excercise statickaFleksija = new Excercise(
+			1L, Excercise.Type.STATIC,
+			10, "Staticka fleksija glave"
+		);
+		Excercise statickaRotacija = new Excercise(
+			2L, Excercise.Type.STATIC,
+			10, "Staticka rotacija glave"
+		);
+		Excercise statickaEkstenzija = new Excercise(
+			3L, Excercise.Type.STATIC,
+			10, "Staticka ekstenzija glave"
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addTherapy(t1),
+			addTherapy(t2),
+			addTherapy(t3),
+			addExcercise(statickaFleksija),
+			addExcercise(statickaRotacija),
+			addExcercise(statickaEkstenzija);
+		}
+end
+		
+			
+			
+rule "Set therapy - Acute Cervical Syndrome - Strong"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.STRONG, 
+			illness == Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Therapy t1 = new Therapy(
+			Therapy.TherapyType.ULTRASOUD,
+			10, "Vratni i rameni deo"
+		);
+		Therapy t2 = new Therapy(
+			Therapy.TherapyType.LASER,
+			10, "Vratni deo"
+		);
+		Therapy t3 = new Therapy(
+			Therapy.TherapyType.BIOPTRON_LAMP,
+			10, "Vratni deo"
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addTherapy(t1),
+			addTherapy(t2),
+			addTherapy(t3);
+		}
+end		
 
+
+
+rule "Set therapy - Acute Cervical Syndrome - Worsening"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.WORSENING, 
+			illness == Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Excercise statickaFleksija = new Excercise(
+			1L, Excercise.Type.STATIC,
+			10, "Staticka fleksija glave"
+		);
+		Excercise statickaRotacija = new Excercise(
+			2L, Excercise.Type.STATIC,
+			10, "Staticka rotacija glave"
+		);
+		Excercise statickaEkstenzija = new Excercise(
+			3L, Excercise.Type.STATIC,
+			10, "Staticka ekstenzija glave"
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addExcercise(statickaFleksija),
+			addExcercise(statickaRotacija),
+			addExcercise(statickaEkstenzija);
+		}
+end	
     	

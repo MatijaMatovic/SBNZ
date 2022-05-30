@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Pain {
 	
-	public enum SimplePainIntensity { MILD, MEDIUM, STRONG}
+	public enum SimplePainIntensity { MILD, MEDIUM, STRONG }
 	
 	public enum PainLocalization {
 		CERVICAL, THORACAL, LUMBAL

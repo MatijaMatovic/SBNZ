@@ -1,7 +1,17 @@
 package com.sbnz.physio.facts;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /* Ova klasa ne mora da se cuva u klasi, sluzi samo da se prikaze korisniku */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Therapy {
 	public enum TherapyType { 
 		ELECTRO_PHORESYS_NOVOCAINE, 

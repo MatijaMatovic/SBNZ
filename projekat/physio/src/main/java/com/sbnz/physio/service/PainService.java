@@ -7,9 +7,10 @@ import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Service;
 
 import com.sbnz.physio.facts.Diagnosis;
+import com.sbnz.physio.facts.Diagnosis.PainIntensity;
 import com.sbnz.physio.facts.Pain;
 import com.sbnz.physio.facts.Patient;
-import com.sbnz.physio.facts.Diagnosis.PainIntensity;
+import com.sbnz.physio.facts.Treatment;
 
 @Service
 public class PainService {
@@ -19,7 +20,7 @@ public class PainService {
 		this.kieContainer = kieContainer;
 	}
 	
-	public Diagnosis classifyPain(Pain pain) {
+	public Treatment classifyPain(Pain pain) {
 		KieSession kieSession = kieContainer.newKieSession("physio-rules");
 		
 		Diagnosis diagnosis = new Diagnosis();
@@ -29,7 +30,7 @@ public class PainService {
 		Diagnosis prevDiagnosis1 = new Diagnosis();
 		prevDiagnosis1.setDiagnosisDate(LocalDate.now().minusMonths(1));
 		prevDiagnosis1.setIllness(Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME);
-		prevDiagnosis1.setPainIntensity(PainIntensity.MEDIUM);
+		prevDiagnosis1.setPainIntensity(PainIntensity.STRONG);
 		
 		
 		Diagnosis prevDiagnosis2 = new Diagnosis();
@@ -40,15 +41,18 @@ public class PainService {
 		//patient.addDiagnosis(prevDiagnosis1);
 		//patient.addDiagnosis(prevDiagnosis1); //za test za Cervical spondylosis B ovu liniju zakomentarisati
 		//patient.addDiagnosis(prevDiagnosis2); 
+		
+		Treatment treatment = new Treatment();
 
 		kieSession.insert(pain);
 		kieSession.insert(diagnosis);
 		kieSession.insert(patient);
+		kieSession.insert(treatment);
 		kieSession.fireAllRules();
 		
 		System.out.println("Patient: \n" + patient);
 		
-		return diagnosis;
+		return treatment;
 		
 	}
 
