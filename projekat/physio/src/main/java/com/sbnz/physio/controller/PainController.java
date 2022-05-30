@@ -45,11 +45,11 @@ public class PainController {
 		testPain.getPrecursors().add(Pain.Precursors.COLD_TEMPERATURES);*/
 		
 		
-		/*//test za Cervical spondylosis A
+		//test za Cervical spondylosis A
 		testPain.getSymptoms().add(Pain.Symptoms.NECK_PAIN_EXTENDING_INTO_NAPE);
 		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
 		testPain.getSymptoms().add(Pain.Symptoms.EXTENDED_POSITION_PAIN);
-		testPain.getPrecursors().add(Pain.Precursors.PROLONGED_DEHIDRATATION);*/
+		testPain.getPrecursors().add(Pain.Precursors.HOT_COLD_TEMPERATURE_CHANGE);
 		
 		
 		//test za Cervical spondylosis B
@@ -107,11 +107,11 @@ public class PainController {
 		testPain.getPrecursors().add(Pain.Precursors.OBESITY);*/
 		
 		
-		testPain.getSymptoms().add(Pain.Symptoms.REST_PAIN);
+		/*testPain.getSymptoms().add(Pain.Symptoms.REST_PAIN);
 		testPain.getSymptoms().add(Pain.Symptoms.LUMBAL_SPINE_DEGENERATION);
 		testPain.getSymptoms().add(Pain.Symptoms.MOVEMENT_PAIN); 
 		testPain.getSymptoms().add(Pain.Symptoms.LEG_IMMOBILITY);
-		testPain.getSymptoms().add(Pain.Symptoms.LEG_ELECTRIC_PAIN);
+		testPain.getSymptoms().add(Pain.Symptoms.LEG_ELECTRIC_PAIN);*/
 		testPain.setSimplePainIntensity(Pain.SimplePainIntensity.MEDIUM);
 		//testPain.getPrecursors().add(Pain.Precursors.LACK_PHYSICAL_ACTIVITY);
 		//testPain.getPrecursors().add(Pain.Precursors.BACK_STRAINING_PROFESSION);

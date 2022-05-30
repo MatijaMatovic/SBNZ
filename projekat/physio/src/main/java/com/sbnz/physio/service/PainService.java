@@ -33,7 +33,7 @@ public class PainService {
 		prevDiagnosis1.setPainIntensity(PainIntensity.STRONG);
 		
 		//test za Cervical spondylosis A
-		//prevDiagnosis1.setIllness(Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME);
+		prevDiagnosis1.setIllness(Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME);
 		
 		
 		Diagnosis prevDiagnosis2 = new Diagnosis();

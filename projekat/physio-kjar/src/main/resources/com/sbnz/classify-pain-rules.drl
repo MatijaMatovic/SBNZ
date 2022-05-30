@@ -246,10 +246,10 @@ rule "Set diagnosis - Primary cervical syndrome B"
 			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.CERVICAL,
 			$symptoms: symptoms, $precursors: precursors
 		)
-		Pain.Precursors(
-			this != Pain.Precursors.MYOGELOSIS
+		not Pain.Precursors(
+			this == Pain.Precursors.MYOGELOSIS
 		) from $precursors
-		List(size > 2) from collect(
+		List(size >= 2) from collect(
 			Diagnosis(
 				illness == Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME, 
 				$date: diagnosisDate,
@@ -274,12 +274,12 @@ rule "Set diagnosis - Cervical spondylosis A"
 			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.CERVICAL,
 			$symptoms: symptoms, $precursors: precursors
 		)
-		Pain.Precursors(
-			this != Pain.Precursors.COLD_TEMPERATURES ||
-			this != Pain.Precursors.HOT_COLD_TEMPERATURE_CHANGE ||
-			this != Pain.Precursors.INTENSE_SUDDEN_MOVEMENT
+		not Pain.Precursors(
+			this == Pain.Precursors.COLD_TEMPERATURES ||
+			this == Pain.Precursors.HOT_COLD_TEMPERATURE_CHANGE ||
+			this == Pain.Precursors.INTENSE_SUDDEN_MOVEMENT
 		) from $precursors
-		List(size > 2) from collect(
+		List(size >= 2) from collect(
 			Diagnosis(
 				illness == Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME, 
 				$date: diagnosisDate,
@@ -347,10 +347,6 @@ rule "Set diagnosis - Cervical discus hernia B"
 			painType == Pain.PainType.NEUROLOGICAL, painLocalization == Pain.PainLocalization.CERVICAL,
 			$symptoms: symptoms, $precursors: precursors
 		)
-		Pain.Precursors(
-			this == Pain.Precursors.INTENSE_SUDDEN_MOVEMENT ||
-			this == Pain.Precursors.NECK_EXTERTION
-		) from $precursors
 		List(size > 3) from collect(
 			Diagnosis(
 				illness == Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME || 
@@ -379,11 +375,11 @@ rule "Set diagnosis - Thoracic syndrom A"
 			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.THORACAL,
 			$symptoms: symptoms, $precursors: precursors
 		)
+		not Pain.Precursors(this == Pain.Precursors.MYOGELOSIS) from $precursors
 		Pain.Precursors(
-			this != Pain.Precursors.MYOGELOSIS &&
-			(this == Pain.Precursors.BAD_POSTURE ||
+			this == Pain.Precursors.BAD_POSTURE ||
 			this == Pain.Precursors.UNDEVELOPED_THORACAL_MUSCULATURE ||
-			this == Pain.Precursors.KYPHO_SCOLIOSIS)
+			this == Pain.Precursors.KYPHO_SCOLIOSIS
 		) from $precursors
 	then
 		System.out.println("Dijagnostifikovano: THORACIC SYNDROME A");
@@ -403,10 +399,10 @@ rule "Set diagnosis - Thoracic syndrom B"
 			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.THORACAL,
 			$symptoms: symptoms, $precursors: precursors
 		)
-		Pain.Precursors(
-			this != Pain.Precursors.MYOGELOSIS
+		not Pain.Precursors(
+			this == Pain.Precursors.MYOGELOSIS
 		) from $precursors
-		List(size > 1) from collect(
+		List(size > 0) from collect(
 			Diagnosis(
 				illness == Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME || 
 				illness == Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME,
@@ -529,19 +525,15 @@ rule "Set diagnosis - Lumbal syndrome"
 			$symptoms: symptoms, $precursors: precursors
 		)
 		Pain.Precursors(
-			this == Pain.Precursors.OBESITY 
-			
+			this == Pain.Precursors.OBESITY ||	
+			this == Pain.Precursors.INTENSE_SUDDEN_MOVEMENT ||
+			this == Pain.Precursors.BACK_EXTERTION	
 		) from $precursors
-		Pain.Symptoms(
-			this == Pain.Symptoms.MOVEMENT_PAIN ||
-			this == Pain.Symptoms.SHARP_LUMBAL_SACRAL_PAIN
-			
-		) from $symptoms
 		List(size < 2) from collect(
 			Diagnosis(
 				illness == Diagnosis.Illness.LUMBAL_SYNDROME,
 				$date: diagnosisDate,
-				$date.isAfter(LocalDate.now().minusMonths(12))
+				$date.isAfter(LocalDate.now().minusMonths(5))
 			) from $diagnoses
 		)
 	then
@@ -585,9 +577,9 @@ rule "Set diagnosis - Lumbago B"
 			painType == Pain.PainType.MECHANICAL, painLocalization == Pain.PainLocalization.LUMBAL,
 			$symptoms: symptoms, $precursors: precursors
 		)
-		List(size > 2) from collect(
+		List(size >= 2) from collect(
 			Diagnosis(
-				illness == Diagnosis.Illness.LUMBAGO, 
+				illness == Diagnosis.Illness.LUMBAL_SYNDROME, 
 				$date: diagnosisDate,
 				$date.isAfter(LocalDate.now().minusMonths(5))
 			) from $diagnoses
@@ -636,11 +628,7 @@ rule "Set diagnosis - Lumbal discus hernia A"
 			painType == Pain.PainType.NEUROLOGICAL, painLocalization == Pain.PainLocalization.LUMBAL,
 			$symptoms: symptoms, $precursors: precursors
 		)
-		Pain.Symptoms(
-			this == Pain.Symptoms.LEG_ELECTRIC_PAIN ||
-			this == Pain.Symptoms.LEG_TINGLING_BURNING ||
-			this == Pain.Symptoms.LEG_SPREADING_SYMPTOMS
-		) from $symptoms
+		Pain.Symptoms(this == Pain.Symptoms.LEG_TINGLING_BURNING) from $symptoms
 	then
 		System.out.println("Dijagnostifikovano: LUMBAL_DISCUS_HERNIA A");
 		modify ($d) { 
@@ -659,9 +647,7 @@ rule "Set diagnosis - Sciatica"
 			painType == Pain.PainType.NEUROLOGICAL, painLocalization == Pain.PainLocalization.LUMBAL,
 			$symptoms: symptoms, $precursors: precursors
 		)
-		Pain.Symptoms(
-			this == Pain.Symptoms.LEG_SPREADING_SYMPTOMS
-		) from $symptoms
+		Pain.Symptoms(this == Pain.Symptoms.LEG_ELECTRIC_PAIN) from $symptoms
 	then
 		System.out.println("Dijagnostifikovano: SCIATICA");
 		modify ($d) { 
@@ -673,82 +659,7 @@ end
 
 
 
-rule "Set pain intensity - Mild"
-
-	when
-		$pt: Patient($diagnoses: diagnoses)
-		$d : Diagnosis(painIntensity == null, $currentIllness: illness)
-		$p : Pain(
-			simplePainIntensity == Pain.SimplePainIntensity.MILD
-		)
-		List(size == 0) from collect(
-			Diagnosis(
-				$diagnosisIllness: illness,
-				$diagnosisIllness == $currentIllness,
-				$date: diagnosisDate,
-				$date.isAfter(LocalDate.now().minusMonths(3))
-			) from $diagnoses
-		)
-	then
-		System.out.println("Klinicka slika: Mild");
-		System.out.println($currentIllness);
-		modify ($d) { 
-			setPainIntensity(Diagnosis.PainIntensity.MILD);
-		}
-		modify($pt) { addDiagnosis($d); }
-end
-
-rule "Set pain intensity - Medium"
-
-	when
-		$pt: Patient($diagnoses: diagnoses)
-		$d : Diagnosis(painIntensity == null, $currentIllness: illness)
-		$p : Pain(
-			simplePainIntensity == Pain.SimplePainIntensity.MEDIUM
-		)
-		List(size == 0) from collect(
-			Diagnosis(
-				$diagnosisIllness: illness,
-				$diagnosisIllness == $currentIllness,
-				$date: diagnosisDate,
-				$date.isAfter(LocalDate.now().minusMonths(3))
-			) from $diagnoses
-		)
-	then
-		System.out.println("Klinicka slika: Medium");
-		System.out.println($currentIllness);
-		modify ($d) { 
-			setPainIntensity(Diagnosis.PainIntensity.MEDIUM);
-		}
-		modify($pt) { addDiagnosis($d); }
-end
-
-rule "Set pain intensity - Strong"
-
-	when
-		$pt: Patient($diagnoses: diagnoses)
-		$d : Diagnosis(painIntensity == null, $currentIllness: illness)
-		$p : Pain(
-			simplePainIntensity == Pain.SimplePainIntensity.STRONG
-		)
-		List(size == 0) from collect(
-			Diagnosis(
-				$diagnosisIllness: illness,
-				$diagnosisIllness == $currentIllness,
-				$date: diagnosisDate,
-				$date.isAfter(LocalDate.now().minusMonths(3))
-			) from $diagnoses
-		)
-	then
-		System.out.println("Klinicka slika: Strong");
-		System.out.println($currentIllness);
-		modify ($d) { 
-			setPainIntensity(Diagnosis.PainIntensity.STRONG);
-		}
-		modify($pt) { addDiagnosis($d); }
-end
-
-rule "Set pain intensity - Worsening"
+rule "Set pain intensity - No previous conditions"
 
 	when
 		$pt: Patient($diagnoses: diagnoses)
@@ -756,43 +667,14 @@ rule "Set pain intensity - Worsening"
 		$p : Pain(
 			$simplePainIntensity: simplePainIntensity
 		)
-		List(size > 0) from collect(
-			Diagnosis(
+		not Diagnosis(
 				$painIntensity: painIntensity,
-				$painIntensity.ordinal() <= $simplePainIntensity.ordinal(),
+				$painIntensity.ordinal() >= $simplePainIntensity.ordinal(),
 				$diagnosisIllness: illness,
 				$diagnosisIllness == $currentIllness,
 				$date: diagnosisDate,
 				$date.isAfter(LocalDate.now().minusMonths(3))
 			) from $diagnoses
-		)
-	then
-		System.out.println("Klinicka slika: Worsening");
-		System.out.println($currentIllness);
-		modify ($d) { 
-			setPainIntensity(Diagnosis.PainIntensity.WORSENING);
-		}
-		modify($pt) { addDiagnosis($d); }
-end
-
-rule "Set pain intensity"
-
-	when
-		$pt: Patient($diagnoses: diagnoses)
-		$d : Diagnosis(painIntensity == null, $currentIllness: illness)
-		$p : Pain(
-			$simplePainIntensity: simplePainIntensity
-		)
-		List(size > 0) from collect(
-			Diagnosis(
-				$painIntensity: painIntensity,
-				$painIntensity.ordinal() > $simplePainIntensity.ordinal(),
-				$diagnosisIllness: illness,
-				$diagnosisIllness == $currentIllness,
-				$date: diagnosisDate,
-				$date.isAfter(LocalDate.now().minusMonths(3))
-			) from $diagnoses
-		)
 	then
 		System.out.println("Klinicka slika: Dijagnostifikovana");
 		modify ($d) { 
@@ -803,6 +685,29 @@ end
 
 
 
+rule "Set pain intensity - Previous conditions"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(painIntensity == null, $currentIllness: illness)
+		$p : Pain(
+			$simplePainIntensity: simplePainIntensity
+		)
+		Diagnosis(
+				$painIntensity: painIntensity,
+				$painIntensity.ordinal() >= $simplePainIntensity.ordinal(),
+				$diagnosisIllness: illness,
+				$diagnosisIllness == $currentIllness,
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(3))
+			) from $diagnoses
+	then
+		System.out.println("Klinicka slika: Dijagnostifikovana");
+		modify ($d) { 
+			setPainIntensity(Diagnosis.PainIntensity.WORSENING);
+		}
+		modify($pt) { addDiagnosis($d); }
+end
 
 		
 
