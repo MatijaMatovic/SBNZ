@@ -821,4 +821,160 @@ rule "Set therapy - Acute Cervical Syndrome - Worsening"
 			addExcercise(statickaEkstenzija);
 		}
 end	
-    	
+
+
+
+rule "Set therapy - Primary Cervical Syndrome - Mild"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.MILD, 
+			illness == Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Therapy t1 = new Therapy(
+			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
+			10, "Vratni deo"
+		);
+		Excercise fleksija = new Excercise(
+			1L, Excercise.Type.DYNAMIC,
+			15, "Fleksija glave"
+		);
+		Excercise rotacija = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			15, "Rotacija glave"
+		);
+		Excercise ekstenzija = new Excercise(
+			3L, Excercise.Type.DYNAMIC,
+			15, "Ekstenzija glave"
+		);
+		Excercise bocnaFleksija = new Excercise(
+			4L, Excercise.Type.DYNAMIC,
+			15, "Bocna fleksija glave"
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addTherapy(t1),
+			addExcercise(fleksija),
+			addExcercise(rotacija),
+			addExcercise(ekstenzija),
+			addExcercise(bocnaFleksija);
+		}
+end
+
+
+
+rule "Set therapy - Primary Cervical Syndrome - Medium"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.MEDIUM, 
+			illness == Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Therapy t1 = new Therapy(
+			Therapy.TherapyType.MASSAGE,
+			10, "Vratni i rameni pojas"
+		);
+		Excercise fleksija = new Excercise(
+			1L, Excercise.Type.DYNAMIC,
+			15, "Fleksija glave"
+		);
+		Excercise rotacija = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			15, "Rotacija glave"
+		);
+		Excercise ekstenzija = new Excercise(
+			3L, Excercise.Type.DYNAMIC,
+			15, "Ekstenzija glave"
+		);
+		Excercise bocnaFleksija = new Excercise(
+			4L, Excercise.Type.DYNAMIC,
+			15, "Bocna fleksija glave"
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addTherapy(t1),
+			addExcercise(fleksija),
+			addExcercise(rotacija),
+			addExcercise(ekstenzija),
+			addExcercise(bocnaFleksija);
+		}
+end
+
+
+
+rule "Set therapy - Primary Cervical Syndrome - Strong"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.STRONG, 
+			illness == Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Therapy t1 = new Therapy(
+			Therapy.TherapyType.INTERFERENCE_CURRENTS,
+			10, "Vratni deo"
+		);
+		Therapy t2 = new Therapy(
+			Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT,
+			10, "Vratni i rameni deo"
+		);
+		Therapy t3 = new Therapy(
+			Therapy.TherapyType.MASSAGE,
+			10, "Vratni i rameni pojas"
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addTherapy(t1),
+			addTherapy(t2),
+			addTherapy(t3);
+		}
+end	
+
+
+	
+rule "Set therapy - Primary Cervical Syndrome - Worsening"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.WORSENING, 
+			illness == Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Excercise fleksija = new Excercise(
+			1L, Excercise.Type.DYNAMIC,
+			15, "Fleksija glave"
+		);
+		Excercise rotacija = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			15, "Rotacija glave"
+		);
+		Excercise ekstenzija = new Excercise(
+			3L, Excercise.Type.DYNAMIC,
+			15, "Ekstenzija glave"
+		);
+		Excercise bocnaFleksija = new Excercise(
+			4L, Excercise.Type.DYNAMIC,
+			15, "Bocna fleksija glave"
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addExcercise(fleksija),
+			addExcercise(rotacija),
+			addExcercise(ekstenzija),
+			addExcercise(bocnaFleksija);
+		}
+end

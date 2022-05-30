@@ -50,7 +50,7 @@ public class PainController {
 		testPain.getSymptoms().add(Pain.Symptoms.NECK_PAIN_EXTENDING_INTO_NAPE);
 		testPain.getSymptoms().add(Pain.Symptoms.MUSCLE_SPASM);
 		testPain.getSymptoms().add(Pain.Symptoms.EXTENDED_POSITION_PAIN);
-		testPain.getPrecursors().add(Pain.Precursors.HOT_COLD_TEMPERATURE_CHANGE);
+		testPain.getPrecursors().add(Pain.Precursors.BAD_POSTURE);
 		
 		
 		//test za Cervical spondylosis B

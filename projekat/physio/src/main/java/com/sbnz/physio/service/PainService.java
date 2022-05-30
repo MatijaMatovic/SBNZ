@@ -29,8 +29,8 @@ public class PainService {
 		
 		Diagnosis prevDiagnosis1 = new Diagnosis();
 		prevDiagnosis1.setDiagnosisDate(LocalDate.now().minusMonths(1));
-		prevDiagnosis1.setIllness(Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME);
-		prevDiagnosis1.setPainIntensity(PainIntensity.STRONG);
+		prevDiagnosis1.setIllness(Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME);
+		prevDiagnosis1.setPainIntensity(PainIntensity.MEDIUM);
 		
 		
 		Diagnosis prevDiagnosis2 = new Diagnosis();
