@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.sbnz.physio.facts.Diagnosis;
 import com.sbnz.physio.facts.Pain;
 import com.sbnz.physio.facts.Patient;
+import com.sbnz.physio.facts.Diagnosis.PainIntensity;
 
 @Service
 public class PainService {
@@ -28,10 +29,11 @@ public class PainService {
 		Diagnosis prevDiagnosis1 = new Diagnosis();
 		prevDiagnosis1.setDiagnosisDate(LocalDate.now());
 		//test za PRIMARY_CERVICAL_SYNDROME B
-		//prevDiagnosis1.setIllness(Diagnosis.Illness.ACUTE_CERVICAL_SYNDROME);
+		prevDiagnosis1.setIllness(Diagnosis.Illness.LUMBAL_DISCUS_HERNIA);
+		prevDiagnosis1.setPainIntensity(PainIntensity.STRONG);
 		
 		//test za Cervical spondylosis A
-		prevDiagnosis1.setIllness(Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME);
+		//prevDiagnosis1.setIllness(Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME);
 		
 		
 		Diagnosis prevDiagnosis2 = new Diagnosis();
@@ -39,9 +41,9 @@ public class PainService {
 		prevDiagnosis2.setIllness(Diagnosis.Illness.LUMBAGO);
 		
 		patient.addDiagnosis(prevDiagnosis1);
-		patient.addDiagnosis(prevDiagnosis1);
+		//patient.addDiagnosis(prevDiagnosis1);
 		//patient.addDiagnosis(prevDiagnosis1); //za test za Cervical spondylosis B ovu liniju zakomentarisati
-		patient.addDiagnosis(prevDiagnosis2); 
+		//patient.addDiagnosis(prevDiagnosis2); 
 
 		kieSession.insert(pain);
 		kieSession.insert(diagnosis);

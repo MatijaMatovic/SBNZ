@@ -204,7 +204,6 @@ rule "Set diagnosis - Acute cervical syndrome"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 
@@ -236,7 +235,6 @@ rule "Set diagnosis - Primary cervical syndrome A"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Primary cervical syndrome B"
@@ -265,7 +263,6 @@ rule "Set diagnosis - Primary cervical syndrome B"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Cervical spondylosis A"
@@ -296,7 +293,6 @@ rule "Set diagnosis - Cervical spondylosis A"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Cervical spondylosis B"
@@ -318,7 +314,6 @@ rule "Set diagnosis - Cervical spondylosis B"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Cervical discus hernia A"
@@ -341,7 +336,6 @@ rule "Set diagnosis - Cervical discus hernia A"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Cervical discus hernia B"
@@ -374,7 +368,6 @@ rule "Set diagnosis - Cervical discus hernia B"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Thoracic syndrom A"
@@ -399,7 +392,6 @@ rule "Set diagnosis - Thoracic syndrom A"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Thoracic syndrom B"
@@ -429,7 +421,6 @@ rule "Set diagnosis - Thoracic syndrom B"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Thoracic spondylosis A"
@@ -451,7 +442,6 @@ rule "Set diagnosis - Thoracic spondylosis A"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Thoracic spondylosis B"
@@ -475,7 +465,6 @@ rule "Set diagnosis - Thoracic spondylosis B"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Thoracic discus hernia B"
@@ -503,7 +492,6 @@ rule "Set diagnosis - Thoracic discus hernia B"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Thoracic discus hernia A"
@@ -527,7 +515,6 @@ rule "Set diagnosis - Thoracic discus hernia A"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 
@@ -564,7 +551,6 @@ rule "Set diagnosis - Lumbal syndrome"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Lumbago A"
@@ -588,7 +574,6 @@ rule "Set diagnosis - Lumbago A"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Lumbago B"
@@ -614,7 +599,6 @@ rule "Set diagnosis - Lumbago B"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Lumbal discus hernia B"
@@ -641,7 +625,6 @@ rule "Set diagnosis - Lumbal discus hernia B"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Lumbal discus hernia A"
@@ -665,7 +648,6 @@ rule "Set diagnosis - Lumbal discus hernia A"
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
 		}
-		modify($pt) { addDiagnosis($d); }
 end
 
 rule "Set diagnosis - Sciatica"
@@ -686,6 +668,109 @@ rule "Set diagnosis - Sciatica"
 			setIllness(Diagnosis.Illness.SCIATICA),
 			setPain($p),
 			setDiagnosisDate(LocalDate.now());
+		}
+end
+
+
+
+rule "Set pain intensity - Mild"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(painIntensity == null, $currentIllness: illness)
+		$p : Pain(
+			simplePainIntensity == Pain.SimplePainIntensity.MILD
+		)
+		List(size == 0) from collect(
+			Diagnosis(
+				$diagnosisIllness: illness,
+				$diagnosisIllness == $currentIllness,
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(3))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Klinicka slika: Mild");
+		System.out.println($currentIllness);
+		modify ($d) { 
+			setPainIntensity(Diagnosis.PainIntensity.MILD);
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set pain intensity - Medium"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(painIntensity == null, $currentIllness: illness)
+		$p : Pain(
+			simplePainIntensity == Pain.SimplePainIntensity.MEDIUM
+		)
+		List(size == 0) from collect(
+			Diagnosis(
+				$diagnosisIllness: illness,
+				$diagnosisIllness == $currentIllness,
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(3))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Klinicka slika: Medium");
+		System.out.println($currentIllness);
+		modify ($d) { 
+			setPainIntensity(Diagnosis.PainIntensity.MEDIUM);
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set pain intensity - Strong"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(painIntensity == null, $currentIllness: illness)
+		$p : Pain(
+			simplePainIntensity == Pain.SimplePainIntensity.STRONG
+		)
+		List(size == 0) from collect(
+			Diagnosis(
+				$diagnosisIllness: illness,
+				$diagnosisIllness == $currentIllness,
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(3))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Klinicka slika: Strong");
+		System.out.println($currentIllness);
+		modify ($d) { 
+			setPainIntensity(Diagnosis.PainIntensity.STRONG);
+		}
+		modify($pt) { addDiagnosis($d); }
+end
+
+rule "Set pain intensity - Worsening"
+
+	when
+		$pt: Patient($diagnoses: diagnoses)
+		$d : Diagnosis(painIntensity == null, $currentIllness: illness)
+		$p : Pain(
+			$simplePainIntensity: simplePainIntensity
+		)
+		List(size > 0) from collect(
+			Diagnosis(
+				$painIntensity: painIntensity,
+				$painIntensity.ordinal() <= $simplePainIntensity.ordinal(),
+				$diagnosisIllness: illness,
+				$diagnosisIllness == $currentIllness,
+				$date: diagnosisDate,
+				$date.isAfter(LocalDate.now().minusMonths(3))
+			) from $diagnoses
+		)
+	then
+		System.out.println("Klinicka slika: Worsening");
+		System.out.println($currentIllness);
+		modify ($d) { 
+			setPainIntensity(Diagnosis.PainIntensity.WORSENING);
 		}
 		modify($pt) { addDiagnosis($d); }
 end
