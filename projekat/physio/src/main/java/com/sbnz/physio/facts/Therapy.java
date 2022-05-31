@@ -28,7 +28,8 @@ public class Therapy {
 		NECK_COLAR,
 		PARAFFIN,
 		TENS_ELECTROTHERAPY,
-		REST
+		REST,
+		SURGERY
 	}
 
 	private TherapyType therapyType;

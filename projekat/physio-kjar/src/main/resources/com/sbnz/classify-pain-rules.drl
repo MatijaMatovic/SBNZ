@@ -1260,15 +1260,29 @@ rule "Set therapy - Thoracic Syndrom - Mild Medium"
 			Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT,
 			1, ""
 		);
-		
-		Excercise trbusniMisici = new Excercise(
+		Excercise e1 = new Excercise(
 			3L, Excercise.Type.DYNAMIC,
-			12, "trbusnjaci, ukrsteni trbusnjaci, leg raise"
+			12, "Trbusnjaci"
 		);
-		
-		Excercise ledjniMisici = new Excercise(
+		Excercise e2 = new Excercise(
 			3L, Excercise.Type.DYNAMIC,
-			12, "ledjnjaci, dizanje lakih tegova lezeci sa poda, sipka iza vrata"
+			12, "Ukrsteni trbusnjaci"
+		);
+		Excercise e3 = new Excercise(
+			3L, Excercise.Type.DYNAMIC,
+			12, "Leg raise"
+		);
+		Excercise e4 = new Excercise(
+			3L, Excercise.Type.DYNAMIC,
+			12, "Ledjnjaci"
+		);
+		Excercise e5 = new Excercise(
+			1L, Excercise.Type.DYNAMIC,
+			12, "Dizanje lakih tegova lezeci sa poda"
+		);
+		Excercise e6 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Sipka iza vrata"
 		);
 		modify ($t) {
 			setPatient($pt),
@@ -1276,8 +1290,12 @@ rule "Set therapy - Thoracic Syndrom - Mild Medium"
 			addTherapy(t1),
 			addTherapy(t2),
 			addTherapy(t3),
-			addExcercise(trbusniMisici),
-			addExcercise(ledjniMisici);
+			addExcercise(e1),
+			addExcercise(e2),
+			addExcercise(e3),
+			addExcercise(e4),
+			addExcercise(e5),
+			addExcercise(e6);
 		}
 end
 
@@ -1307,14 +1325,29 @@ rule "Set therapy - Thoracic Syndrom - Strong Worsening"
 			Therapy.TherapyType.MASSAGE,
 			1, "Rameni pojas izmedju lopatica"
 		);
-		Excercise trbusniMisici = new Excercise(
+		Excercise e1 = new Excercise(
 			3L, Excercise.Type.DYNAMIC,
-			12, "trbusnjaci, ukrsteni trbusnjaci, leg raise"
+			12, "Trbusnjaci"
 		);
-		
-		Excercise ledjniMisici = new Excercise(
+		Excercise e2 = new Excercise(
 			3L, Excercise.Type.DYNAMIC,
-			12, "ledjnjaci, dizanje lakih tegova lezeci sa poda, sipka iza vrata"
+			12, "Ukrsteni trbusnjaci"
+		);
+		Excercise e3 = new Excercise(
+			3L, Excercise.Type.DYNAMIC,
+			12, "Leg raise"
+		);
+		Excercise e4 = new Excercise(
+			3L, Excercise.Type.DYNAMIC,
+			12, "Ledjnjaci"
+		);
+		Excercise e5 = new Excercise(
+			1L, Excercise.Type.DYNAMIC,
+			12, "Dizanje lakih tegova lezeci sa poda"
+		);
+		Excercise e6 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Sipka iza vrata"
 		);
 		modify ($t) {
 			setPatient($pt),
@@ -1323,8 +1356,12 @@ rule "Set therapy - Thoracic Syndrom - Strong Worsening"
 			addTherapy(t2),
 			addTherapy(t3),
 			addTherapy(t4),
-			addExcercise(trbusniMisici),
-			addExcercise(ledjniMisici);
+			addExcercise(e1),
+			addExcercise(e2),
+			addExcercise(e3),
+			addExcercise(e4),
+			addExcercise(e5),
+			addExcercise(e6);
 		}
 end
 
@@ -1358,14 +1395,29 @@ rule "Set therapy - Thoracic Spondylosis - Mild Medium"
 			Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT,
 			1, ""
 		);
-		Excercise trbusniMisici = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
-			12, "trbusnjaci, ukrsteni trbusnjaci, leg raise"
+		Excercise e1 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Trbusnjaci"
 		);
-		
-		Excercise ledjniMisici = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
-			12, "ledjnjaci, dizanje lakih tegova lezeci sa poda, sipka iza vrata"
+		Excercise e2 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Ukrsteni trbusnjaci"
+		);
+		Excercise e3 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Leg raise"
+		);
+		Excercise e4 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Ledjnjaci"
+		);
+		Excercise e5 = new Excercise(
+			1L, Excercise.Type.DYNAMIC,
+			12, "Dizanje lakih tegova lezeci sa poda"
+		);
+		Excercise e6 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Sipka iza vrata"
 		);
 		modify ($t) {
 			setPatient($pt),
@@ -1375,8 +1427,12 @@ rule "Set therapy - Thoracic Spondylosis - Mild Medium"
 			addTherapy(t3),
 			addTherapy(t4),
 			addTherapy(t5),
-			addExcercise(trbusniMisici),
-			addExcercise(ledjniMisici);
+			addExcercise(e1),
+			addExcercise(e2),
+			addExcercise(e3),
+			addExcercise(e4),
+			addExcercise(e5),
+			addExcercise(e6);
 		}
 end
 
@@ -1414,14 +1470,29 @@ rule "Set therapy - Thoracic Spondylosis - Strong Worsening"
 			Therapy.TherapyType.PARAFFIN,
 			1, ""
 		);
-		Excercise trbusniMisici = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
-			12, "trbusnjaci, ukrsteni trbusnjaci, leg raise"
+		Excercise e1 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Trbusnjaci"
 		);
-		
-		Excercise ledjniMisici = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
-			12, "ledjnjaci, dizanje lakih tegova lezeci sa poda, sipka iza vrata"
+		Excercise e2 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Ukrsteni trbusnjaci"
+		);
+		Excercise e3 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Leg raise"
+		);
+		Excercise e4 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Ledjnjaci"
+		);
+		Excercise e5 = new Excercise(
+			1L, Excercise.Type.DYNAMIC,
+			12, "Dizanje lakih tegova lezeci sa poda"
+		);
+		Excercise e6 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Sipka iza vrata"
 		);
 		modify ($t) {
 			setPatient($pt),
@@ -1432,8 +1503,12 @@ rule "Set therapy - Thoracic Spondylosis - Strong Worsening"
 			addTherapy(t4),
 			addTherapy(t5),
 			addTherapy(t6),
-			addExcercise(trbusniMisici),
-			addExcercise(ledjniMisici);
+			addExcercise(e1),
+			addExcercise(e2),
+			addExcercise(e3),
+			addExcercise(e4),
+			addExcercise(e5),
+			addExcercise(e6);
 		}
 end
 
@@ -1463,14 +1538,29 @@ rule "Set therapy - Thoracic Discus Hernia - Mild Medium"
 			Therapy.TherapyType.LASER,
 			1, "Na bolna mesta"
 		);
-		Excercise trbusniMisici = new Excercise(
+		Excercise e1 = new Excercise(
 			2L, Excercise.Type.DYNAMIC,
-			12, "trbusnjaci, ukrsteni trbusnjaci, leg raise"
+			12, "Trbusnjaci"
 		);
-		
-		Excercise ledjniMisici = new Excercise(
+		Excercise e2 = new Excercise(
 			2L, Excercise.Type.DYNAMIC,
-			12, "ledjnjaci, dizanje lakih tegova lezeci sa poda, sipka iza vrata"
+			12, "Ukrsteni trbusnjaci"
+		);
+		Excercise e3 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Leg raise"
+		);
+		Excercise e4 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Ledjnjaci"
+		);
+		Excercise e5 = new Excercise(
+			1L, Excercise.Type.DYNAMIC,
+			12, "Dizanje lakih tegova lezeci sa poda"
+		);
+		Excercise e6 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Sipka iza vrata"
 		);
 		modify ($t) {
 			setPatient($pt),
@@ -1478,8 +1568,12 @@ rule "Set therapy - Thoracic Discus Hernia - Mild Medium"
 			addTherapy(t1),
 			addTherapy(t2),
 			addTherapy(t3),
-			addExcercise(trbusniMisici),
-			addExcercise(ledjniMisici);
+			addExcercise(e1),
+			addExcercise(e2),
+			addExcercise(e3),
+			addExcercise(e4),
+			addExcercise(e5),
+			addExcercise(e6);
 		}
 end
 
@@ -1536,22 +1630,61 @@ rule "Set therapy - Lumbal Syndrom - Mild Medium"
 			Therapy.TherapyType.ULTRASOUD,
 			1, "Lumbalni deo"
 		);
-		Excercise trbusniMisici = new Excercise(
+		Excercise e1 = new Excercise(
 			2L, Excercise.Type.DYNAMIC,
-			10, "trbusnjaci, ukrsteni trbusnjaci, leg raise, lezece ravnanje kicme, lezece ravnaje kicme+dizanje glave"
+			12, "Trbusnjaci"
 		);
-		
-		Excercise ledjniMisici = new Excercise(
+		Excercise e2 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Ukrsteni trbusnjaci"
+		);
+		Excercise e3 = new Excercise(
 			3L, Excercise.Type.DYNAMIC,
-			12, "ledjnjaci, dizanje lakih tegova lezeci sa poda, sipka iza vrata, most savijenih i ispruzenih ruku"
+			12, "Leg raise"
+		);
+		Excercise e4 = new Excercise(
+			3L, Excercise.Type.DYNAMIC,
+			12, "Ledjnjaci"
+		);
+		Excercise e5 = new Excercise(
+			1L, Excercise.Type.DYNAMIC,
+			12, "Dizanje lakih tegova lezeci sa poda"
+		);
+		Excercise e6 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Sipka iza vrata"
+		);
+		Excercise e7 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			10, "Lezece ravnanje kicme"
+		);
+		Excercise e8 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Lezece ravnanje kicme+dizanje glave ka grudima"
+		);
+		Excercise e9 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Most savijenih ruku"
+		);
+		Excercise e10 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Most ispruzenih ruku"
 		);
 		modify ($t) {
 			setPatient($pt),
 			setDiagnosis($d),
 			addTherapy(t1),
 			addTherapy(t2),
-			addExcercise(trbusniMisici),
-			addExcercise(ledjniMisici);
+			addExcercise(e1),
+			addExcercise(e2),
+			addExcercise(e3),
+			addExcercise(e4),
+			addExcercise(e5),
+			addExcercise(e6),
+			addExcercise(e7),
+			addExcercise(e8),
+			addExcercise(e9),
+			addExcercise(e10);
 		}
 end
 
@@ -1577,14 +1710,45 @@ rule "Set therapy - Lumbal Syndrom - Strong"
 			Therapy.TherapyType.MASSAGE,
 			1, ""
 		);
-		Excercise trbusniMisici = new Excercise(
+		Excercise e1 = new Excercise(
 			2L, Excercise.Type.DYNAMIC,
-			10, "trbusnjaci, ukrsteni trbusnjaci, leg raise, lezece ravnanje kicme, lezece ravnaje kicme+dizanje glave"
+			12, "Trbusnjaci"
 		);
-		
-		Excercise ledjniMisici = new Excercise(
+		Excercise e2 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Ukrsteni trbusnjaci"
+		);
+		Excercise e3 = new Excercise(
 			3L, Excercise.Type.DYNAMIC,
-			12, "ledjnjaci, dizanje lakih tegova lezeci sa poda, sipka iza vrata, most savijenih i ispruzenih ruku"
+			12, "Leg raise"
+		);
+		Excercise e4 = new Excercise(
+			3L, Excercise.Type.DYNAMIC,
+			12, "Ledjnjaci"
+		);
+		Excercise e5 = new Excercise(
+			1L, Excercise.Type.DYNAMIC,
+			12, "Dizanje lakih tegova lezeci sa poda"
+		);
+		Excercise e6 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Sipka iza vrata"
+		);
+		Excercise e7 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			10, "Lezece ravnanje kicme"
+		);
+		Excercise e8 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Lezece ravnanje kicme+dizanje glave ka grudima"
+		);
+		Excercise e9 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Most savijenih ruku"
+		);
+		Excercise e10 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Most ispruzenih ruku"
 		);
 		modify ($t) {
 			setPatient($pt),
@@ -1592,8 +1756,16 @@ rule "Set therapy - Lumbal Syndrom - Strong"
 			addTherapy(t1),
 			addTherapy(t2),
 			addTherapy(t3),
-			addExcercise(trbusniMisici),
-			addExcercise(ledjniMisici);
+			addExcercise(e1),
+			addExcercise(e2),
+			addExcercise(e3),
+			addExcercise(e4),
+			addExcercise(e5),
+			addExcercise(e6),
+			addExcercise(e7),
+			addExcercise(e8),
+			addExcercise(e9),
+			addExcercise(e10);
 		}
 end
 
@@ -1673,14 +1845,29 @@ rule "Set therapy - Lumbago - Strong Worsening"
 			Therapy.TherapyType.LASER,
 			1, "Bolna mesta"
 		);
-		Excercise trbusniMisici = new Excercise(
+		Excercise e1 = new Excercise(
 			2L, Excercise.Type.DYNAMIC,
-			12, "trbusnjaci, ukrsteni trbusnjaci, leg raise"
+			12, "Trbusnjaci"
 		);
-		
-		Excercise ledjniMisici = new Excercise(
+		Excercise e2 = new Excercise(
 			2L, Excercise.Type.DYNAMIC,
-			12, "ledjnjaci, dizanje lakih tegova lezeci sa poda, sipka iza vrata"
+			12, "Ukrsteni trbusnjaci"
+		);
+		Excercise e3 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Leg raise"
+		);
+		Excercise e4 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Ledjnjaci"
+		);
+		Excercise e5 = new Excercise(
+			1L, Excercise.Type.DYNAMIC,
+			12, "Dizanje lakih tegova lezeci sa poda"
+		);
+		Excercise e6 = new Excercise(
+			2L, Excercise.Type.DYNAMIC,
+			12, "Sipka iza vrata"
 		);
 		modify ($t) {
 			setPatient($pt),
@@ -1691,7 +1878,279 @@ rule "Set therapy - Lumbago - Strong Worsening"
 			addTherapy(t4),
 			addTherapy(t5),
 			addTherapy(t6),
-			addExcercise(trbusniMisici),
-			addExcercise(ledjniMisici);
+			addExcercise(e1),
+			addExcercise(e2),
+			addExcercise(e3),
+			addExcercise(e4),
+			addExcercise(e5),
+			addExcercise(e6);
+		}
+end
+
+rule "Set therapy - Sciatica - Mild Medium"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.MILD || painIntensity == Diagnosis.PainIntensity.MEDIUM, 
+			illness == Diagnosis.Illness.SCIATICA, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Therapy t1 = new Therapy(
+			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
+			1, "L-S deo"
+		);
+		Therapy t2 = new Therapy(
+			Therapy.TherapyType.ELECTRO_PHORESYS_B_VIT,
+			1, "Duz noge"
+		);
+		Therapy t3 = new Therapy(
+			Therapy.TherapyType.INTERFERENCE_CURRENTS,
+			1, "L-S deo i stopalo"
+		);
+		Therapy t4 = new Therapy(
+			Therapy.TherapyType.TENS_ELECTROTHERAPY,
+			1, ""
+		);
+		
+		Therapy t5 = new Therapy(
+			Therapy.TherapyType.BIOPTRON_LAMP,
+			1, "Bolan deo"
+		);
+		Excercise e1 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			10, "Lezece ravnanje kicme"
+		);
+		Excercise e2 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Lezece ravnanje kicme+dizanje glave ka grudima"
+		);
+		Excercise e3 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Most savijenih ruku"
+		);
+		Excercise e4 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Most ispruzenih ruku"
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addTherapy(t1),
+			addTherapy(t2),
+			addTherapy(t3),
+			addTherapy(t4),
+			addTherapy(t5),
+			addExcercise(e1),
+			addExcercise(e2),
+			addExcercise(e3),
+			addExcercise(e4);
+		}
+end
+
+rule "Set therapy - Sciatica - Strong Worsening"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.STRONG || painIntensity == Diagnosis.PainIntensity.WORSENING, 
+			illness == Diagnosis.Illness.SCIATICA, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Therapy t1 = new Therapy(
+			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
+			1, "L-S deo"
+		);
+		Therapy t2 = new Therapy(
+			Therapy.TherapyType.ELECTRO_PHORESYS_B_VIT,
+			1, "Duz noge"
+		);
+		Therapy t3 = new Therapy(
+			Therapy.TherapyType.INTERFERENCE_CURRENTS,
+			1, "L-S deo i stopalo"
+		);
+		Therapy t4 = new Therapy(
+			Therapy.TherapyType.TENS_ELECTROTHERAPY,
+			1, ""
+		);
+		Therapy t5 = new Therapy(
+			Therapy.TherapyType.MAGNETOTHERAPY,
+			1, "L-S deo i noge"
+		);
+		Therapy t6 = new Therapy(
+			Therapy.TherapyType.LASER,
+			1, "Duz noge"
+		);
+		Therapy t7 = new Therapy(
+			Therapy.TherapyType.PARAFFIN,
+			1, "Bolan deo"
+		);
+		Therapy t8 = new Therapy(
+			Therapy.TherapyType.ULTRASOUD,
+			1, "L-S deo kicme"
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addTherapy(t1),
+			addTherapy(t2),
+			addTherapy(t3),
+			addTherapy(t4),
+			addTherapy(t5),
+			addTherapy(t6),
+			addTherapy(t7),
+			addTherapy(t8);
+		}
+end
+
+rule "Set therapy - Lumbal Discus Hernia - Mild"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.MILD, 
+			illness == Diagnosis.Illness.LUMBAL_DISCUS_HERNIA, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Therapy t1 = new Therapy(
+			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
+			1, "Na bolna mesta"
+		);
+		Therapy t2 = new Therapy(
+			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
+			1, "Duz noge i na L-S deo"
+		);
+		Therapy t3 = new Therapy(
+			Therapy.TherapyType.ELECTRO_PHORESYS_B_VIT,
+			1, "Duz noge"
+		);
+		Therapy t4 = new Therapy(
+			Therapy.TherapyType.MAGNETOTHERAPY,
+			1, "L-S deo i duz noge"
+		);
+		
+		Therapy t5 = new Therapy(
+			Therapy.TherapyType.TENS_ELECTROTHERAPY,
+			1, ""
+		);
+		Therapy t6 = new Therapy(
+			Therapy.TherapyType.PARAFFIN,
+			1, "L-S deo"
+		);
+		Therapy t7 = new Therapy(
+			Therapy.TherapyType.INTERFERENCE_CURRENTS,
+			1, "L-S deo i stopala"
+		);	
+		Excercise e1 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			10, "Lezece ravnanje kicme"
+		);
+		Excercise e2 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Lezece ravnanje kicme+dizanje glave ka grudima"
+		);
+		Excercise e3 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Most savijenih ruku"
+		);
+		Excercise e4 = new Excercise(
+			2L, Excercise.Type.STATIC,
+			8, "Most ispruzenih ruku"
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addTherapy(t1),
+			addTherapy(t2),
+			addTherapy(t3),
+			addTherapy(t4),
+			addTherapy(t5),
+			addTherapy(t6),
+			addTherapy(t7),
+			addExcercise(e1),
+			addExcercise(e2),
+			addExcercise(e3),
+			addExcercise(e4);
+		}
+end
+
+rule "Set therapy - Lumbal Discus Hernia - Medium Strong"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.MEDIUM || painIntensity == Diagnosis.PainIntensity.STRONG, 
+			illness == Diagnosis.Illness.LUMBAL_DISCUS_HERNIA, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Therapy t1 = new Therapy(
+			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
+			1, "Na bolna mesta"
+		);
+		Therapy t2 = new Therapy(
+			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
+			1, "Duz noge i na L-S deo"
+		);
+		Therapy t3 = new Therapy(
+			Therapy.TherapyType.ELECTRO_PHORESYS_B_VIT,
+			1, "Duz noge"
+		);
+		Therapy t4 = new Therapy(
+			Therapy.TherapyType.MAGNETOTHERAPY,
+			1, "L-S deo i duz noge"
+		);
+		
+		Therapy t5 = new Therapy(
+			Therapy.TherapyType.TENS_ELECTROTHERAPY,
+			1, ""
+		);
+		Therapy t6 = new Therapy(
+			Therapy.TherapyType.PARAFFIN,
+			1, "L-S deo"
+		);
+		Therapy t7 = new Therapy(
+			Therapy.TherapyType.INTERFERENCE_CURRENTS,
+			1, "L-S deo i stopala"
+		);
+		Therapy t8 = new Therapy(
+			Therapy.TherapyType.REST,
+			1, ""
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addTherapy(t1),
+			addTherapy(t2),
+			addTherapy(t3),
+			addTherapy(t4),
+			addTherapy(t5),
+			addTherapy(t6),
+			addTherapy(t7),
+			addTherapy(t8);
+		}
+end
+
+rule "Set therapy - Lumbal Discus Hernia - Worsening"
+	when 
+		$t : Treatment(patient == null, diagnosis == null)
+		$pt: Patient()
+		$d : Diagnosis(
+			painIntensity == Diagnosis.PainIntensity.WORSENING, 
+			illness == Diagnosis.Illness.LUMBAL_DISCUS_HERNIA, 
+			$painIntensity: painIntensity, $illnes: illness
+		)
+	then 
+		Therapy t1 = new Therapy(
+			Therapy.TherapyType.SURGERY,
+			1, ""
+		);
+		modify ($t) {
+			setPatient($pt),
+			setDiagnosis($d),
+			addTherapy(t1);
 		}
 end
