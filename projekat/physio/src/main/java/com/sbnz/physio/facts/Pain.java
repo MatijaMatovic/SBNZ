@@ -106,8 +106,8 @@ public class Pain {
 		}
 		
 				
-		return "Pain Type: " + painType + "\nPain Localization: " + painLocalization 
-						+ "\nSymptoms: " + symptomsString + "\nPrecursors: " + precursorsString;
+		return "\nPain Type: " + painType + "\nPain Localization: " + painLocalization 
+						+ "\nSymptoms: " + symptomsString + "\nPrecursors: " + precursorsString + "\n";
 	}
 
 

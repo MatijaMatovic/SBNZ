@@ -10,6 +10,8 @@ import com.sbnz.physio.facts.Diagnosis;
 import com.sbnz.physio.facts.Diagnosis.PainIntensity;
 import com.sbnz.physio.facts.Pain;
 import com.sbnz.physio.facts.Patient;
+import com.sbnz.physio.facts.Therapy;
+import com.sbnz.physio.facts.Therapy.TherapyType;
 import com.sbnz.physio.facts.Treatment;
 
 @Service
@@ -30,7 +32,7 @@ public class PainService {
 		Diagnosis prevDiagnosis1 = new Diagnosis();
 		prevDiagnosis1.setDiagnosisDate(LocalDate.now().minusMonths(1));
 		prevDiagnosis1.setIllness(Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME);
-		prevDiagnosis1.setPainIntensity(PainIntensity.MEDIUM);
+		prevDiagnosis1.setPainIntensity(PainIntensity.WORSENING);
 		
 		
 		Diagnosis prevDiagnosis2 = new Diagnosis();
@@ -42,6 +44,14 @@ public class PainService {
 		//patient.addDiagnosis(prevDiagnosis1); //za test za Cervical spondylosis B ovu liniju zakomentarisati
 		//patient.addDiagnosis(prevDiagnosis2); 
 		
+		Treatment oldTreatment = new Treatment();
+		Therapy oldTherapy = new Therapy();
+		oldTherapy.setTherapyType(TherapyType.ELECTRO_PHORESYS_NOVOCAINE);
+		oldTherapy.setSessions(20);
+		oldTreatment.addTherapy(oldTherapy);
+		oldTreatment.setPatient(patient);
+		oldTreatment.setDiagnosis(prevDiagnosis1);
+		
 		Treatment treatment = new Treatment();
 
 		kieSession.insert(pain);
@@ -50,7 +60,7 @@ public class PainService {
 		kieSession.insert(treatment);
 		kieSession.fireAllRules();
 		
-		System.out.println("Patient: \n" + patient);
+		//System.out.println("Patient: \n" + patient);
 		
 		return treatment;
 		
