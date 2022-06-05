@@ -2158,6 +2158,7 @@ rule "Set therapy - Lumbal Discus Hernia - Worsening"
 end
 
 
+
 rule "Remove novocaine if overdose"
 	when
 		$t : Treatment(patient != null)
@@ -2185,3 +2186,31 @@ rule "Remove novocaine if overdose"
 			);
 		}
 end
+
+
+
+rule "Remove chiropractic adjustment if too much"
+	when
+		$t : Treatment(patient != null)
+		$p : Patient($treatments: treatments)
+		accumulate(
+			Treatment(
+				$tr: this,
+				$diagnosisDate: diagnosis.getDiagnosisDate(),
+				$diagnosisDae.isAfter(LocalDate.now().minusMonths(3)),
+				$therapies: therapies,
+				$diagnosis: diagnosis
+			) from $treatments
+			and 
+			Therapy(therapyType == Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT, $sessions: sessions) from $therapies
+			and
+			Diagnosis($neurologicalDiagnosis: this, pain.painType == Pain.PainType.NEUROLOGICAL) from collectList($diagnosis)
+			$brTerapija: sum($sessions),
+			$neuroloskaOboljenja: collectList($neurologicalDiagnosis),
+			$recentTreatments: collectList($tr)
+		)
+		eval($recentTreatments.size() > 1 && $recentTreatments.size() < 4)
+		eval($brTerapija > 30)
+		eval($neuroloskaOboljenja.size() > 1)
+	then
+		System.out.println("SMANJI MALO LOMLJENJE KOSTIJU");		
