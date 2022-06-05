@@ -2192,25 +2192,32 @@ end
 rule "Remove chiropractic adjustment if too much"
 	when
 		$t : Treatment(patient != null)
-		$p : Patient($treatments: treatments)
+		$p : Patient($treatments: treatments, $diagnoses: diagnoses)
+		List(size > 1) from collect (
+			Diagnosis(
+				pain.getPainType() == Pain.PainType.NEUROLOGICAL,
+				diagnosisDate.isAfter(LocalDate.now().minusMonths(5))
+			) from $diagnoses
+		)	
 		accumulate(
 			Treatment(
 				$tr: this,
 				$diagnosisDate: diagnosis.getDiagnosisDate(),
-				$diagnosisDae.isAfter(LocalDate.now().minusMonths(3)),
-				$therapies: therapies,
-				$diagnosis: diagnosis
+				$diagnosisDate.isAfter(LocalDate.now().minusMonths(3)),
+				$therapies: therapies
 			) from $treatments
 			and 
-			Therapy(therapyType == Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT, $sessions: sessions) from $therapies
-			and
-			Diagnosis($neurologicalDiagnosis: this, pain.painType == Pain.PainType.NEUROLOGICAL) from collectList($diagnosis)
+			Therapy(therapyType == Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT, $sessions: sessions) from $therapies,
 			$brTerapija: sum($sessions),
-			$neuroloskaOboljenja: collectList($neurologicalDiagnosis),
 			$recentTreatments: collectList($tr)
 		)
 		eval($recentTreatments.size() > 1 && $recentTreatments.size() < 4)
 		eval($brTerapija > 30)
-		eval($neuroloskaOboljenja.size() > 1)
 	then
-		System.out.println("SMANJI MALO LOMLJENJE KOSTIJU");		
+		System.out.println("SMANJI MALO LOMLJENJE KOSTIJU");	
+		modify ($t) {
+			getTherapies().removeIf(therapy ->
+				therapy.getTherapyType() == Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT
+			);
+		}	
+end

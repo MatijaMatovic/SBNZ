@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import com.sbnz.physio.facts.Diagnosis;
 import com.sbnz.physio.facts.Diagnosis.PainIntensity;
 import com.sbnz.physio.facts.Pain;
+import com.sbnz.physio.facts.Pain.PainType;
 import com.sbnz.physio.facts.Patient;
 import com.sbnz.physio.facts.Therapy;
 import com.sbnz.physio.facts.Therapy.TherapyType;
+
 import com.sbnz.physio.facts.Treatment;
 
 @Service
@@ -29,15 +31,20 @@ public class PainService {
 		
 		Patient patient = new Patient();
 		
+		Pain nekiBol = new Pain();
+		nekiBol.setPainType(PainType.MECHANICAL);
+		
 		Diagnosis prevDiagnosis1 = new Diagnosis();
 		prevDiagnosis1.setDiagnosisDate(LocalDate.now().minusMonths(1));
 		prevDiagnosis1.setIllness(Diagnosis.Illness.PRIMARY_CERVICAL_SYNDROME);
 		prevDiagnosis1.setPainIntensity(PainIntensity.WORSENING);
+		prevDiagnosis1.setPain(nekiBol);
 		
 		
 		Diagnosis prevDiagnosis2 = new Diagnosis();
 		prevDiagnosis2.setDiagnosisDate(LocalDate.now());
 		prevDiagnosis2.setIllness(Diagnosis.Illness.LUMBAGO);
+		prevDiagnosis2.setPain(nekiBol);
 		
 		patient.addDiagnosis(prevDiagnosis1);
 		//patient.addDiagnosis(prevDiagnosis1);
