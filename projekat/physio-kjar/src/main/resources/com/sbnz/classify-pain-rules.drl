@@ -1023,19 +1023,19 @@ rule "Set therapy - Cervical Spondylosis - Mild Medium Strong "
 			10, "Staticka ekstenzija glave"
 		);
 		Excercise fleksija = new Excercise(
-			1L, Excercise.Type.DYNAMIC,
+			4L, Excercise.Type.DYNAMIC,
 			15, "Fleksija glave"
 		);
 		Excercise rotacija = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			5L, Excercise.Type.DYNAMIC,
 			15, "Rotacija glave"
 		);
 		Excercise ekstenzija = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
+			6L, Excercise.Type.DYNAMIC,
 			15, "Ekstenzija glave"
 		);
 		Excercise bocnaFleksija = new Excercise(
-			4L, Excercise.Type.DYNAMIC,
+			7L, Excercise.Type.DYNAMIC,
 			15, "Bocna fleksija glave"
 		);
 		modify ($t) {
@@ -1104,19 +1104,19 @@ rule "Set therapy - Cervical Spondylosis - Worsening"
 			10, "Staticka ekstenzija glave"
 		);
 		Excercise fleksija = new Excercise(
-			1L, Excercise.Type.DYNAMIC,
+			4L, Excercise.Type.DYNAMIC,
 			15, "Fleksija glave"
 		);
 		Excercise rotacija = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			5L, Excercise.Type.DYNAMIC,
 			15, "Rotacija glave"
 		);
 		Excercise ekstenzija = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
+			6L, Excercise.Type.DYNAMIC,
 			15, "Ekstenzija glave"
 		);
 		Excercise bocnaFleksija = new Excercise(
-			4L, Excercise.Type.DYNAMIC,
+			7L, Excercise.Type.DYNAMIC,
 			15, "Bocna fleksija glave"
 		);
 		modify ($t) {
@@ -1165,15 +1165,15 @@ rule "Set therapy - Cervical Discus Hernia - Mild Medium Strong "
 			Therapy.TherapyType.MAGNETOTHERAPY,
 			10, "Vratni deo i duz ruke"
 		);
-		Excercise mirovanje = new Excercise(
-			1L, Excercise.Type.REST,
-			10, "Sancov okovratnik i mirovanje"
+		Therapy t5 = new Therapy(
+			Therapy.TherapyType.NECK_COLAR,
+			10, "Vratni deo"
 		);
-		
-		Excercise kineziterapija = new Excercise(
-			1L, Excercise.Type.STATIC,
-			10, "Kineziterapija"
+		Therapy t6 = new Therapy(
+			Therapy.TherapyType.REST,
+			10, "Lezanje u zastitnom polozaju"
 		);
+
 		modify ($t) {
 			setPatient($pt),
 			setDiagnosis($d),
@@ -1181,8 +1181,8 @@ rule "Set therapy - Cervical Discus Hernia - Mild Medium Strong "
 			addTherapy(t2),
 			addTherapy(t3),
 			addTherapy(t4),
-			addExcercise(mirovanje),
-			addExcercise(kineziterapija);
+			addTherapy(t5),
+			addTherapy(t6);
 		}
 end
 
@@ -1216,14 +1216,17 @@ rule "Set therapy - Cervical Discus Hernia - Worsening"
 			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
 			10, "Vratni deo i saka"
 		);
-		
 		Therapy t6 = new Therapy(
 			Therapy.TherapyType.REST,
 			10, "Skidanje okovratnika"
 		);
-		Excercise kineziterapija = new Excercise(
-			1L, Excercise.Type.REST,
-			10, "Kineziterapija uz skidanje okovratnika"
+		Therapy t7 = new Therapy(
+			Therapy.TherapyType.ELECTRO_PHORESYS_SODIUM,
+			10, "Vratni deo"
+		);
+		Therapy t8 = new Therapy(
+			Therapy.TherapyType.NECK_COLAR,
+			10, "Vratni deo"
 		);
 		modify ($t) {
 			setPatient($pt),
@@ -1234,7 +1237,8 @@ rule "Set therapy - Cervical Discus Hernia - Worsening"
 			addTherapy(t4),
 			addTherapy(t5),
 			addTherapy(t6),
-			addExcercise(kineziterapija);
+			addTherapy(t7),
+			addTherapy(t8);
 		}
 end
 
@@ -1250,22 +1254,22 @@ rule "Set therapy - Thoracic Syndrom - Mild Medium"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
-			1, "Izmedju lopatica i bolna mesta"
+			10, "Izmedju lopatica i bolna mesta"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.BIOPTRON_LAMP,
-			1, "Izmedju lopatica"
+			10, "Izmedju lopatica"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT,
-			1, ""
+			10, "Tretmani kod kiroprakticara"
 		);
 		Excercise e1 = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
+			1L, Excercise.Type.DYNAMIC,
 			12, "Trbusnjaci"
 		);
 		Excercise e2 = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
+			2L, Excercise.Type.DYNAMIC,
 			12, "Ukrsteni trbusnjaci"
 		);
 		Excercise e3 = new Excercise(
@@ -1273,15 +1277,15 @@ rule "Set therapy - Thoracic Syndrom - Mild Medium"
 			12, "Leg raise"
 		);
 		Excercise e4 = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
+			4L, Excercise.Type.DYNAMIC,
 			12, "Ledjnjaci"
 		);
 		Excercise e5 = new Excercise(
-			1L, Excercise.Type.DYNAMIC,
+			5L, Excercise.Type.DYNAMIC,
 			12, "Dizanje lakih tegova lezeci sa poda"
 		);
 		Excercise e6 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			6L, Excercise.Type.DYNAMIC,
 			12, "Sipka iza vrata"
 		);
 		modify ($t) {
@@ -1311,26 +1315,26 @@ rule "Set therapy - Thoracic Syndrom - Strong Worsening"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.BIOPTRON_LAMP,
-			1, "Izmedju lopatica"
+			10, "Izmedju lopatica"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT,
-			1, ""
+			10, "Tretmani kod kiroprakticara"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
-			1, "Na bolna mesta"
+			10, "Na bolna mesta"
 		);
 		Therapy t4 = new Therapy(
 			Therapy.TherapyType.MASSAGE,
-			1, "Rameni pojas izmedju lopatica"
+			10, "Rameni pojas izmedju lopatica"
 		);
 		Excercise e1 = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
+			1L, Excercise.Type.DYNAMIC,
 			12, "Trbusnjaci"
 		);
 		Excercise e2 = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
+			2L, Excercise.Type.DYNAMIC,
 			12, "Ukrsteni trbusnjaci"
 		);
 		Excercise e3 = new Excercise(
@@ -1338,15 +1342,15 @@ rule "Set therapy - Thoracic Syndrom - Strong Worsening"
 			12, "Leg raise"
 		);
 		Excercise e4 = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
+			4L, Excercise.Type.DYNAMIC,
 			12, "Ledjnjaci"
 		);
 		Excercise e5 = new Excercise(
-			1L, Excercise.Type.DYNAMIC,
+			5L, Excercise.Type.DYNAMIC,
 			12, "Dizanje lakih tegova lezeci sa poda"
 		);
 		Excercise e6 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			6L, Excercise.Type.DYNAMIC,
 			12, "Sipka iza vrata"
 		);
 		modify ($t) {
@@ -1377,11 +1381,11 @@ rule "Set therapy - Thoracic Spondylosis - Mild Medium"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
-			1, "Predeo grudne muskulature"
+			7, "Predeo grudne muskulature"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ULTRASOUD,
-			1, "Predeo grudne kicme"
+			7, "Predeo grudne kicme"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.BIOPTRON_LAMP,
@@ -1389,14 +1393,14 @@ rule "Set therapy - Thoracic Spondylosis - Mild Medium"
 		);
 		Therapy t4 = new Therapy(
 			Therapy.TherapyType.MASSAGE,
-			1, ""
+			10, "Lopaticni deo i sredina ledja"
 		);
 		Therapy t5 = new Therapy(
 			Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT,
-			1, ""
+			7, "Lomljenje kod kiroprakticara, defragmentacija mijogeloza"
 		);
 		Excercise e1 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			1L, Excercise.Type.DYNAMIC,
 			12, "Trbusnjaci"
 		);
 		Excercise e2 = new Excercise(
@@ -1404,19 +1408,19 @@ rule "Set therapy - Thoracic Spondylosis - Mild Medium"
 			12, "Ukrsteni trbusnjaci"
 		);
 		Excercise e3 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			3L, Excercise.Type.DYNAMIC,
 			12, "Leg raise"
 		);
 		Excercise e4 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			4L, Excercise.Type.DYNAMIC,
 			12, "Ledjnjaci"
 		);
 		Excercise e5 = new Excercise(
-			1L, Excercise.Type.DYNAMIC,
+			5L, Excercise.Type.DYNAMIC,
 			12, "Dizanje lakih tegova lezeci sa poda"
 		);
 		Excercise e6 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			6L, Excercise.Type.DYNAMIC,
 			12, "Sipka iza vrata"
 		);
 		modify ($t) {
@@ -1448,30 +1452,30 @@ rule "Set therapy - Thoracic Spondylosis - Strong Worsening"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
-			1, "Predeo grudne muskulature"
+			10, "Predeo grudne muskulature"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ULTRASOUD,
-			1, "Predeo grudne kicme"
+			10, "Predeo grudne kicme"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.BIOPTRON_LAMP,
-			20, "Grudna kicma"
+			10, "Grudna kicma"
 		);
 		Therapy t4 = new Therapy(
 			Therapy.TherapyType.MASSAGE,
-			20, ""
+			10, "Lopaticni deo i sredina ledja do ispod rebara"
 		);
 		Therapy t5 = new Therapy(
 			Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT,
-			1, ""
+			10, "Defragmentacija mijogeloza, nezno namestanje."
 		);
 		Therapy t6 = new Therapy(
 			Therapy.TherapyType.PARAFFIN,
-			1, ""
+			10, "Bolna mesta i na deltoideuse"
 		);
 		Excercise e1 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			1L, Excercise.Type.DYNAMIC,
 			12, "Trbusnjaci"
 		);
 		Excercise e2 = new Excercise(
@@ -1479,19 +1483,19 @@ rule "Set therapy - Thoracic Spondylosis - Strong Worsening"
 			12, "Ukrsteni trbusnjaci"
 		);
 		Excercise e3 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			3L, Excercise.Type.DYNAMIC,
 			12, "Leg raise"
 		);
 		Excercise e4 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			4L, Excercise.Type.DYNAMIC,
 			12, "Ledjnjaci"
 		);
 		Excercise e5 = new Excercise(
-			1L, Excercise.Type.DYNAMIC,
+			5L, Excercise.Type.DYNAMIC,
 			12, "Dizanje lakih tegova lezeci sa poda"
 		);
 		Excercise e6 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			6L, Excercise.Type.DYNAMIC,
 			12, "Sipka iza vrata"
 		);
 		modify ($t) {
@@ -1524,11 +1528,11 @@ rule "Set therapy - Thoracic Discus Hernia - Mild Medium"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
-			1, "Predeo donjeg dela grudne kicme"
+			10, "Predeo donjeg dela grudne kicme"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ULTRASOUD,
-			1, "Predeo donjeg dela grudne kicme"
+			10, "Predeo donjeg dela grudne kicme"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.PARAFFIN,
@@ -1536,10 +1540,10 @@ rule "Set therapy - Thoracic Discus Hernia - Mild Medium"
 		);
 		Therapy t4 = new Therapy(
 			Therapy.TherapyType.LASER,
-			1, "Na bolna mesta"
+			10, "Na bolna mesta"
 		);
 		Excercise e1 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			1L, Excercise.Type.DYNAMIC,
 			12, "Trbusnjaci"
 		);
 		Excercise e2 = new Excercise(
@@ -1547,19 +1551,19 @@ rule "Set therapy - Thoracic Discus Hernia - Mild Medium"
 			12, "Ukrsteni trbusnjaci"
 		);
 		Excercise e3 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			3L, Excercise.Type.DYNAMIC,
 			12, "Leg raise"
 		);
 		Excercise e4 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			4L, Excercise.Type.DYNAMIC,
 			12, "Ledjnjaci"
 		);
 		Excercise e5 = new Excercise(
-			1L, Excercise.Type.DYNAMIC,
+			5L, Excercise.Type.DYNAMIC,
 			12, "Dizanje lakih tegova lezeci sa poda"
 		);
 		Excercise e6 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			6L, Excercise.Type.DYNAMIC,
 			12, "Sipka iza vrata"
 		);
 		modify ($t) {
@@ -1589,11 +1593,11 @@ rule "Set therapy - Thoracic Discus Hernia - Strong Worsening"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
-			1, "Predeo donjeg dela grudne kicme"
+			10, "Predeo donjeg dela grudne kicme"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ULTRASOUD,
-			1, "Predeo donjeg dela grudne kicme"
+			10, "Predeo donjeg dela grudne kicme"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.PARAFFIN,
@@ -1601,7 +1605,7 @@ rule "Set therapy - Thoracic Discus Hernia - Strong Worsening"
 		);
 		Therapy t4 = new Therapy(
 			Therapy.TherapyType.MAGNETOTHERAPY,
-			1, ""
+			10, "Izmedju lopatica i deltoideusi"
 		);
 		modify ($t) {
 			setPatient($pt),
@@ -1624,14 +1628,14 @@ rule "Set therapy - Lumbal Syndrom - Mild Medium"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
-			1, "Lumbalni deo"
+			10, "Lumbalni deo"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ULTRASOUD,
-			1, "Lumbalni deo"
+			10, "Lumbalni deo"
 		);
 		Excercise e1 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			1L, Excercise.Type.DYNAMIC,
 			12, "Trbusnjaci"
 		);
 		Excercise e2 = new Excercise(
@@ -1643,31 +1647,31 @@ rule "Set therapy - Lumbal Syndrom - Mild Medium"
 			12, "Leg raise"
 		);
 		Excercise e4 = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
+			4L, Excercise.Type.DYNAMIC,
 			12, "Ledjnjaci"
 		);
 		Excercise e5 = new Excercise(
-			1L, Excercise.Type.DYNAMIC,
+			5L, Excercise.Type.DYNAMIC,
 			12, "Dizanje lakih tegova lezeci sa poda"
 		);
 		Excercise e6 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			6L, Excercise.Type.DYNAMIC,
 			12, "Sipka iza vrata"
 		);
 		Excercise e7 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			7L, Excercise.Type.STATIC,
 			10, "Lezece ravnanje kicme"
 		);
 		Excercise e8 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			8L, Excercise.Type.STATIC,
 			8, "Lezece ravnanje kicme+dizanje glave ka grudima"
 		);
 		Excercise e9 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			9L, Excercise.Type.STATIC,
 			8, "Most savijenih ruku"
 		);
 		Excercise e10 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			10L, Excercise.Type.STATIC,
 			8, "Most ispruzenih ruku"
 		);
 		modify ($t) {
@@ -1700,18 +1704,18 @@ rule "Set therapy - Lumbal Syndrom - Strong"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
-			1, "Lumbalni deo"
+			10, "Lumbalni deo"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ULTRASOUD,
-			1, "Lumbalni deo"
+			10, "Lumbalni deo"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.MASSAGE,
-			1, ""
+			10, "Lumbalni deo, krstacni deo, ispod rebara"
 		);
 		Excercise e1 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			1L, Excercise.Type.DYNAMIC,
 			12, "Trbusnjaci"
 		);
 		Excercise e2 = new Excercise(
@@ -1723,31 +1727,31 @@ rule "Set therapy - Lumbal Syndrom - Strong"
 			12, "Leg raise"
 		);
 		Excercise e4 = new Excercise(
-			3L, Excercise.Type.DYNAMIC,
+			4L, Excercise.Type.DYNAMIC,
 			12, "Ledjnjaci"
 		);
 		Excercise e5 = new Excercise(
-			1L, Excercise.Type.DYNAMIC,
+			5L, Excercise.Type.DYNAMIC,
 			12, "Dizanje lakih tegova lezeci sa poda"
 		);
 		Excercise e6 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			6L, Excercise.Type.DYNAMIC,
 			12, "Sipka iza vrata"
 		);
 		Excercise e7 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			7L, Excercise.Type.STATIC,
 			10, "Lezece ravnanje kicme"
 		);
 		Excercise e8 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			8L, Excercise.Type.STATIC,
 			8, "Lezece ravnanje kicme+dizanje glave ka grudima"
 		);
 		Excercise e9 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			9L, Excercise.Type.STATIC,
 			8, "Most savijenih ruku"
 		);
 		Excercise e10 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			10L, Excercise.Type.STATIC,
 			8, "Most ispruzenih ruku"
 		);
 		modify ($t) {
@@ -1781,18 +1785,18 @@ rule "Set therapy - Lumbago - Mild Medium"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
-			1, "Lumbalni deo"
+			10, "Lumbalni deo"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ULTRASOUD,
-			1, "Lumbalni deo"
+			10, "Lumbalni deo"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
-			1, "Lumbalni deo"
+			10, "Lumbalni deo"
 		);
 		Excercise trbusniMisici = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			1L, Excercise.Type.DYNAMIC,
 			12, "trbusnjaci, ukrsteni trbusnjaci, leg raise"
 		);
 		
@@ -1823,30 +1827,30 @@ rule "Set therapy - Lumbago - Strong Worsening"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
-			1, "Lumbalni deo"
+			10, "Lumbalni deo"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ULTRASOUD,
-			1, "Lumbalni deo"
+			10, "Lumbalni deo"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
-			1, "Lumbalni deo"
+			10, "Lumbalni deo"
 		);
 		Therapy t4 = new Therapy(
 			Therapy.TherapyType.MAGNETOTHERAPY,
-			1, "Lumbalni deo"
+			10, "Lumbalni deo"
 		);
 		Therapy t5 = new Therapy(
 			Therapy.TherapyType.PARAFFIN,
-			1, "Krstacni deo"
+			10, "Krstacni deo"
 		);
 		Therapy t6 = new Therapy(
 			Therapy.TherapyType.LASER,
-			1, "Bolna mesta"
+			10, "Bolna mesta"
 		);
 		Excercise e1 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			1L, Excercise.Type.DYNAMIC,
 			12, "Trbusnjaci"
 		);
 		Excercise e2 = new Excercise(
@@ -1854,19 +1858,19 @@ rule "Set therapy - Lumbago - Strong Worsening"
 			12, "Ukrsteni trbusnjaci"
 		);
 		Excercise e3 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			3L, Excercise.Type.DYNAMIC,
 			12, "Leg raise"
 		);
 		Excercise e4 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			4L, Excercise.Type.DYNAMIC,
 			12, "Ledjnjaci"
 		);
 		Excercise e5 = new Excercise(
-			1L, Excercise.Type.DYNAMIC,
+			5L, Excercise.Type.DYNAMIC,
 			12, "Dizanje lakih tegova lezeci sa poda"
 		);
 		Excercise e6 = new Excercise(
-			2L, Excercise.Type.DYNAMIC,
+			6L, Excercise.Type.DYNAMIC,
 			12, "Sipka iza vrata"
 		);
 		modify ($t) {
@@ -1899,27 +1903,26 @@ rule "Set therapy - Sciatica - Mild Medium"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
-			1, "L-S deo"
+			10, "L-S deo"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_B_VIT,
-			1, "Duz noge"
+			10, "Duz noge"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.INTERFERENCE_CURRENTS,
-			1, "L-S deo i stopalo"
+			10, "L-S deo i stopalo"
 		);
 		Therapy t4 = new Therapy(
 			Therapy.TherapyType.TENS_ELECTROTHERAPY,
-			1, ""
+			10, "Duz noge"
 		);
-		
 		Therapy t5 = new Therapy(
 			Therapy.TherapyType.BIOPTRON_LAMP,
-			1, "Bolan deo"
+			10, "Bolan deo"
 		);
 		Excercise e1 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			1L, Excercise.Type.STATIC,
 			10, "Lezece ravnanje kicme"
 		);
 		Excercise e2 = new Excercise(
@@ -1927,11 +1930,11 @@ rule "Set therapy - Sciatica - Mild Medium"
 			8, "Lezece ravnanje kicme+dizanje glave ka grudima"
 		);
 		Excercise e3 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			3L, Excercise.Type.STATIC,
 			8, "Most savijenih ruku"
 		);
 		Excercise e4 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			4L, Excercise.Type.STATIC,
 			8, "Most ispruzenih ruku"
 		);
 		modify ($t) {
@@ -1961,35 +1964,35 @@ rule "Set therapy - Sciatica - Strong Worsening"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
-			1, "L-S deo"
+			10, "L-S deo"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_B_VIT,
-			1, "Duz noge"
+			10, "Duz noge"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.INTERFERENCE_CURRENTS,
-			1, "L-S deo i stopalo"
+			10, "L-S deo i stopalo"
 		);
 		Therapy t4 = new Therapy(
 			Therapy.TherapyType.TENS_ELECTROTHERAPY,
-			1, ""
+			10, "L-S deo, duz noge i bolan deo"
 		);
 		Therapy t5 = new Therapy(
 			Therapy.TherapyType.MAGNETOTHERAPY,
-			1, "L-S deo i noge"
+			10, "L-S deo i noge"
 		);
 		Therapy t6 = new Therapy(
 			Therapy.TherapyType.LASER,
-			1, "Duz noge"
+			10, "Duz noge"
 		);
 		Therapy t7 = new Therapy(
 			Therapy.TherapyType.PARAFFIN,
-			1, "Bolan deo"
+			10, "Bolan deo"
 		);
 		Therapy t8 = new Therapy(
 			Therapy.TherapyType.ULTRASOUD,
-			1, "L-S deo kicme"
+			10, "L-S deo kicme"
 		);
 		modify ($t) {
 			setPatient($pt),
@@ -2017,24 +2020,24 @@ rule "Set therapy - Lumbal Discus Hernia - Mild"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
-			1, "Na bolna mesta"
+			10, "Na bolna mesta"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
-			1, "Duz noge i na L-S deo"
+			10, "Duz noge i na L-S deo"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_B_VIT,
-			1, "Duz noge"
+			10, "Duz noge"
 		);
 		Therapy t4 = new Therapy(
 			Therapy.TherapyType.MAGNETOTHERAPY,
-			1, "L-S deo i duz noge"
+			10, "L-S deo i duz noge"
 		);
 		
 		Therapy t5 = new Therapy(
 			Therapy.TherapyType.TENS_ELECTROTHERAPY,
-			1, ""
+			10, "L-S deo"
 		);
 		Therapy t6 = new Therapy(
 			Therapy.TherapyType.PARAFFIN,
@@ -2045,7 +2048,7 @@ rule "Set therapy - Lumbal Discus Hernia - Mild"
 			1, "L-S deo i stopala"
 		);	
 		Excercise e1 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			1L, Excercise.Type.STATIC,
 			10, "Lezece ravnanje kicme"
 		);
 		Excercise e2 = new Excercise(
@@ -2053,11 +2056,11 @@ rule "Set therapy - Lumbal Discus Hernia - Mild"
 			8, "Lezece ravnanje kicme+dizanje glave ka grudima"
 		);
 		Excercise e3 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			3L, Excercise.Type.STATIC,
 			8, "Most savijenih ruku"
 		);
 		Excercise e4 = new Excercise(
-			2L, Excercise.Type.STATIC,
+			4L, Excercise.Type.STATIC,
 			8, "Most ispruzenih ruku"
 		);
 		modify ($t) {
@@ -2089,36 +2092,35 @@ rule "Set therapy - Lumbal Discus Hernia - Medium Strong"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.DIODYNAMIC_ELLECTROCURRENTS,
-			1, "Na bolna mesta"
+			10, "Na bolna mesta"
 		);
 		Therapy t2 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE,
-			1, "Duz noge i na L-S deo"
+			10, "Duz noge i na L-S deo"
 		);
 		Therapy t3 = new Therapy(
 			Therapy.TherapyType.ELECTRO_PHORESYS_B_VIT,
-			1, "Duz noge"
+			10, "Duz noge"
 		);
 		Therapy t4 = new Therapy(
 			Therapy.TherapyType.MAGNETOTHERAPY,
-			1, "L-S deo i duz noge"
+			10, "L-S deo i duz noge"
 		);
-		
 		Therapy t5 = new Therapy(
 			Therapy.TherapyType.TENS_ELECTROTHERAPY,
-			1, ""
+			10, "L-S deo"
 		);
 		Therapy t6 = new Therapy(
 			Therapy.TherapyType.PARAFFIN,
-			1, "L-S deo"
+			10, "L-S deo"
 		);
 		Therapy t7 = new Therapy(
 			Therapy.TherapyType.INTERFERENCE_CURRENTS,
-			1, "L-S deo i stopala"
+			10, "L-S deo i stopala"
 		);
 		Therapy t8 = new Therapy(
 			Therapy.TherapyType.REST,
-			1, ""
+			10, "Lezanje na ledjima na tvrdoj podlozi"
 		);
 		modify ($t) {
 			setPatient($pt),
@@ -2146,7 +2148,7 @@ rule "Set therapy - Lumbal Discus Hernia - Worsening"
 	then 
 		Therapy t1 = new Therapy(
 			Therapy.TherapyType.SURGERY,
-			1, ""
+			1, "Predociti pacijentu ideju operacije, benefitima i rizicima iste."
 		);
 		modify ($t) {
 			setPatient($pt),
