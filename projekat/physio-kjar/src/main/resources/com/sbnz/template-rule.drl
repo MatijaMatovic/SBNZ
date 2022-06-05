@@ -1,0 +1,30 @@
+package com.sbnz;
+import com.sbnz.physio.facts.Pain.PainType;
+import com.sbnz.physio.facts.Pain.PainLocalization;
+import com.sbnz.physio.facts.Pain.Symptoms;
+import com.sbnz.physio.facts.Pain.Precursors;
+import com.sbnz.physio.facts.Diagnosis.Illness;
+import com.sbnz.physio.facts.*;
+import java.time.LocalDate;
+
+rule "Categorize Pain_0"
+when
+	$pt: Patient($diagnoses: diagnoses)
+	$d : Diagnosis(illness == null)
+    $p: Pain(painType == PainType.MECHANICAL, 
+    		painLocalization == PainLocalization.CERVICAL,
+    		$symptoms: symptoms, 
+    		$precursors: precursors)
+    Number($value: intValue >= 1) from accumulate(
+            Precursors($t:this, this memberOf [Precursors.BAD_POSTURE, Precursors.COLD_TEMPERATURES]) from $precursors,
+            count($t)
+        )
+then
+ 		modify($d) { 
+        	setIllness(Illness.PRIMARY_CERVICAL_SYNDROME),
+			setPain($p),
+			setDiagnosisDate(LocalDate.now()); 
+        }
+    
+end
+

@@ -11,7 +11,6 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Therapy {
 	public enum TherapyType { 
 		ELECTRO_PHORESYS_NOVOCAINE, 
@@ -35,5 +34,10 @@ public class Therapy {
 	private TherapyType therapyType;
 	private Integer sessions;
 	private String locality;
+	@Override
+	public String toString() {
+		
+		return "new Therapy(TherapyType."+therapyType+", "+String.valueOf(sessions)+", \""+locality+"\")";
+	}
 
 }

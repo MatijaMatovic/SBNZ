@@ -1,0 +1,41 @@
+template header
+type
+localization
+symptoms
+precursors
+illness
+
+package com.sbnz;
+
+import com.sbnz.physio.facts.Pain.PainType;
+import com.sbnz.physio.facts.Pain.PainLocalization;
+import com.sbnz.physio.facts.Pain.Symptoms;
+import com.sbnz.physio.facts.Pain.Precursors;
+import com.sbnz.physio.facts.Diagnosis.Illness;
+import com.sbnz.physio.facts.Pain;
+import java.time.LocalDate;
+
+
+template "classification-rules"
+
+rule "Categorize Pain_@{row.rowNumber}"
+when
+	$pt: Patient($diagnoses: diagnoses)
+	$d : Diagnosis(illness == null)
+    $p: Pain(painType == @{type}, 
+    		painLocalization == @{localization},
+    		$symptoms: symptoms, 
+    		$precursors: precursors)
+    Number($value: intValue >= 2) from accumulate(
+            Precursors($t:this, this memberOf @{precursors}) from $precursors,
+            count($t)
+        )
+then
+	modify($d) { 
+	    setIllness(@{illness}),
+		setPain($p),
+		setDiagnosisDate(LocalDate.now());
+	}
+end
+
+end template

@@ -1,0 +1,38 @@
+template header
+therapy
+painIntensities
+illness
+
+package com.sbnz;
+
+import com.sbnz.physio.facts.Pain.PainType;
+import com.sbnz.physio.facts.Pain.PainLocalization;
+import com.sbnz.physio.facts.Pain.Symptoms;
+import com.sbnz.physio.facts.Pain.Precursors;
+import com.sbnz.physio.facts.Diagnosis.Illness;
+import com.sbnz.physio.facts.Diagnosis.PainIntensity;
+import com.sbnz.physio.facts.Therapy.TherapyType;
+import com.sbnz.physio.facts.*;
+import java.time.LocalDate;
+import java.util.Arrays;
+
+
+template "classification-rules"
+
+rule "Set Therapy_@{row.rowNumber}"
+when
+	$t : Treatment(patient == null, diagnosis == null)
+	$pt: Patient()
+	$d : Diagnosis(
+		painIntensity memberOf @{painIntensities}, 
+		illness == @{illness}, 
+		$painIntensity: painIntensity, $illnes: illness
+	)
+then
+	modify($t) { 
+		setTherapies(Arrays.asList(@{therapy}));
+	}
+	
+end
+
+end template
