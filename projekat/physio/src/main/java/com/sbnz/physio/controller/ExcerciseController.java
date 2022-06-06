@@ -1,7 +1,7 @@
 package com.sbnz.physio.controller;
 
+import com.sbnz.physio.events.ExcerciseEvent;
 import com.sbnz.physio.facts.Excercise;
-import com.sbnz.physio.facts.ExcerciseEvent;
 import com.sbnz.physio.facts.ExerciseReplacement;
 import com.sbnz.physio.service.PainService;
 

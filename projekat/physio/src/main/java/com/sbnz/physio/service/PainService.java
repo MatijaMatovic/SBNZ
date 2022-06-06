@@ -1,27 +1,22 @@
 package com.sbnz.physio.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 
-import org.glassfish.jersey.server.monitoring.RequestEvent.ExceptionCause;
-import org.kie.api.event.rule.AgendaEventListener;
 import org.kie.api.runtime.ClassObjectFilter;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Service;
 
+import com.sbnz.physio.events.ExcerciseEvent;
 import com.sbnz.physio.facts.Diagnosis;
-import com.sbnz.physio.facts.Excercise;
 import com.sbnz.physio.facts.Diagnosis.PainIntensity;
-import com.sbnz.physio.facts.ExcerciseEvent;
 import com.sbnz.physio.facts.ExerciseReplacement;
 import com.sbnz.physio.facts.Pain;
 import com.sbnz.physio.facts.Pain.PainType;
 import com.sbnz.physio.facts.Patient;
 import com.sbnz.physio.facts.Therapy;
 import com.sbnz.physio.facts.Therapy.TherapyType;
-
 import com.sbnz.physio.facts.Treatment;
 
 @Service
@@ -84,8 +79,8 @@ public class PainService {
 	
 	
 	public ExerciseReplacement classifyExcercise(ExcerciseEvent e) {
-		KieSession kieSession = kieContainer.newKieSession("physio-rules");
-		kieContainer.getKieSessionConfiguration("physio-rules");
+		KieSession kieSession = kieContainer.newKieSession("physio-cep");
+		kieContainer.getKieSessionConfiguration("physio-cep");
 		//ExerciseReplacement er = new ExerciseReplacement();
 		kieSession.insert(e);
 		///kieSession.insert(er);

@@ -1,0 +1,107 @@
+package com.cep;
+
+//list any import classes here.
+
+import com.sbnz.physio.facts.*;
+import com.sbnz.physio.events.*;
+import java.util.List;
+
+declare WorkoutDifficultyEvent
+	@role(event)
+end
+
+
+rule "Dynamic to static"
+    when
+        $t1: ExcerciseEvent(painType == ExcerciseEvent.PainType.STIFFNESS, type == Excercise.Type.DYNAMIC, $name: name)
+    then
+       insert(new ExerciseReplacement(Excercise.Type.STATIC, $name, false));
+       insert(new WorkoutDifficultyEvent());
+end
+
+rule "Static to rest"
+    when
+        $t1: ExcerciseEvent(type == Excercise.Type.STATIC, $name: name)
+    then
+       insert(new ExerciseReplacement(Excercise.Type.REST, "Pacijent neka odmori malo", false));
+       insert(new WorkoutDifficultyEvent());
+end
+
+
+rule "Dynamic to rest"
+	when 
+		$t1: ExcerciseEvent(painType == ExcerciseEvent.PainType.PAIN, type == Excercise.Type.DYNAMIC)
+		List (size > 1) from collect ( ExcerciseEvent() over window:time(10m) )
+	then
+		insert(new ExerciseReplacement(Excercise.Type.REST, "Pacijent neka prekine vezbe", true));
+end
+
+
+rule "Many mild injuries"
+	when 
+		List (size > 1) from collect ( InjuryEvent(severity == InjuryEvent.InjurySeverity.MILD) over window:time(20m) )
+	then
+		insert(new WorkoutDifficultyEvent());
+end
+
+rule "Exhausts a lot"
+	when 
+		List (size > 2) from collect ( ExhaustionEvent() over window:time(20m))
+	then
+		insert(new WorkoutDifficultyEvent());
+end
+
+
+rule "Many mild events"
+	when 
+		accumulate(
+			InjuryEvent($injury: this, severity == InjuryEvent.InjurySeverity.MILD) over window:time(20m)
+			and
+			ExhaustionEvent($exhaustion: this) over window:time(20m),
+			$brPovreda: count($injury),
+			$brPremora: count($exhaustion)
+		)
+		eval($brPovreda + $brPremora > 2)
+	then
+		insert(new WorkoutDifficultyEvent());
+end		
+
+/*
+rule "Dynamic difficulties"
+	when 
+		$e1: ExcerciseEvent(painType == ExcerciseEvent.PainType.PAIN, type == Excercise.Type.DYNAMIC, $name: name)
+		$e2: WorkoutDifficultyEvent()
+	then
+		insert(new ExerciseReplacement(Excercise.Type.STATIC, $name, false));
+end
+
+rule "Dynamic injury - no other difficulties"
+	when 
+		$e1: InjuryEvent(severity == InjuryEvent.Severity.SEVERE, type == Excercise.Type.DYNAMIC, $name: name)
+		List (size <= 1) from collect (InjuryEvent())
+		List (size == 0) from collect (ExcerciseEvent())
+	then
+		insert(new ExerciseReplacement(Excercise.Type.STATIC, $name, false));
+end
+*/
+rule "Dynamic injury - other difficulties"
+	when 
+		$e1: InjuryEvent(severity == InjuryEvent.Severity.SEVERE, type == Excercise.Type.DYNAMIC)
+		List (size > 1) from collect (InjuryEvent())
+		List (size > 0) from collect (ExcerciseEvent())
+	then
+		insert(new ExerciseReplacement(Excercise.Type.REST, "Pacijent neka hitno prekine sa vezbanjem", true));
+end
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
