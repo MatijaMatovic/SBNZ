@@ -1,6 +1,10 @@
-package com.sbnz.physio.facts;
+package com.sbnz.physio.events;
 
+import org.kie.api.definition.type.Expires;
 import org.kie.api.definition.type.Role;
+
+import com.sbnz.physio.events.ExcerciseEvent.PainType;
+import com.sbnz.physio.facts.Excercise;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -16,8 +20,11 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Role(Role.Type.EVENT)
-public class ExerciseReplacement {
+@Expires("30m")
+public class InjuryEvent {
+	public enum InjurySeverity { MILD, SEVERE }
+	private InjurySeverity severity;
 	private Excercise.Type type;
 	private String name;
-	private boolean stopWorkout;
+	
 }

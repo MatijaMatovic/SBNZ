@@ -5,5 +5,9 @@
 	<kbase name="rules" packages="com.sbnz">
 		<ksession name="physio-rules"/>
 	</kbase>
+	
+	<kbase name="cep" packages="com.cep" eventProcessingMode="stream">
+		<ksession name="physio-cep" />
+	</kbase>
    
 </kmodule>
