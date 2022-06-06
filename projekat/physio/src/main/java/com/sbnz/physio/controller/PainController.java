@@ -113,7 +113,7 @@ public class PainController {
 		testPain.getSymptoms().add(Pain.Symptoms.MOVEMENT_PAIN); 
 		testPain.getSymptoms().add(Pain.Symptoms.LEG_IMMOBILITY);
 		testPain.getSymptoms().add(Pain.Symptoms.LEG_ELECTRIC_PAIN);*/
-		testPain.setSimplePainIntensity(Pain.SimplePainIntensity.MEDIUM);
+		testPain.setSimplePainIntensity(Pain.SimplePainIntensity.STRONG);
 		//testPain.getPrecursors().add(Pain.Precursors.LACK_PHYSICAL_ACTIVITY);
 		//testPain.getPrecursors().add(Pain.Precursors.BACK_STRAINING_PROFESSION);
 		

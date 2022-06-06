@@ -2156,3 +2156,68 @@ rule "Set therapy - Lumbal Discus Hernia - Worsening"
 			addTherapy(t1);
 		}
 end
+
+
+
+rule "Remove novocaine if overdose"
+	when
+		$t : Treatment(patient != null)
+		$p : Patient($treatments: treatments)
+		accumulate(
+			Treatment(
+				$tr: this,
+				$diagnosisDate: diagnosis.getDiagnosisDate(), 
+				$diagnosisDate.isAfter(LocalDate.now().minusMonths(3)),
+				$therapies: therapies
+			) from $treatments
+			and
+			Therapy(therapyType == Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE, $sessions: sessions) from $therapies,
+			$brTerapija: sum($sessions),
+			$recentTreatments: collectList($tr)
+		)
+		eval($recentTreatments.size() > 1 && $recentTreatments.size() < 4)
+		eval($brTerapija > 30)
+			
+	then
+		System.out.println("COCAINA OVERDOSE");	
+		modify ($t) {
+			getTherapies().removeIf(therapy ->
+				therapy.getTherapyType() == Therapy.TherapyType.ELECTRO_PHORESYS_NOVOCAINE
+			);
+		}
+end
+
+
+
+rule "Remove chiropractic adjustment if too much"
+	when
+		$t : Treatment(patient != null)
+		$p : Patient($treatments: treatments, $diagnoses: diagnoses)
+		List(size > 1) from collect (
+			Diagnosis(
+				pain.getPainType() == Pain.PainType.NEUROLOGICAL,
+				diagnosisDate.isAfter(LocalDate.now().minusMonths(5))
+			) from $diagnoses
+		)	
+		accumulate(
+			Treatment(
+				$tr: this,
+				$diagnosisDate: diagnosis.getDiagnosisDate(),
+				$diagnosisDate.isAfter(LocalDate.now().minusMonths(3)),
+				$therapies: therapies
+			) from $treatments
+			and 
+			Therapy(therapyType == Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT, $sessions: sessions) from $therapies,
+			$brTerapija: sum($sessions),
+			$recentTreatments: collectList($tr)
+		)
+		eval($recentTreatments.size() > 1 && $recentTreatments.size() < 4)
+		eval($brTerapija > 30)
+	then
+		System.out.println("SMANJI MALO LOMLJENJE KOSTIJU");	
+		modify ($t) {
+			getTherapies().removeIf(therapy ->
+				therapy.getTherapyType() == Therapy.TherapyType.CHIROPRACTIC_ADJUSTMENT
+			);
+		}	
+end
