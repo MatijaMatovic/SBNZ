@@ -36,7 +36,7 @@ rule "Dynamic to rest"
 		insert(new ExerciseReplacement(Excercise.Type.REST, "Pacijent neka prekine vezbe", true));
 end
 
-
+/*
 rule "Many mild injuries"
 	when 
 		List (size > 1) from collect ( InjuryEvent(severity == InjuryEvent.InjurySeverity.MILD) over window:time(20m) )
@@ -50,6 +50,8 @@ rule "Exhausts a lot"
 	then
 		insert(new WorkoutDifficultyEvent());
 end
+
+*/
 
 
 rule "Many mild events"
@@ -66,7 +68,7 @@ rule "Many mild events"
 		insert(new WorkoutDifficultyEvent());
 end		
 
-/*
+
 rule "Dynamic difficulties"
 	when 
 		$e1: ExcerciseEvent(painType == ExcerciseEvent.PainType.PAIN, type == Excercise.Type.DYNAMIC, $name: name)
@@ -83,7 +85,7 @@ rule "Dynamic injury - no other difficulties"
 	then
 		insert(new ExerciseReplacement(Excercise.Type.STATIC, $name, false));
 end
-*/
+
 rule "Dynamic injury - other difficulties"
 	when 
 		$e1: InjuryEvent(severity == InjuryEvent.Severity.SEVERE, type == Excercise.Type.DYNAMIC)
