@@ -1,7 +1,9 @@
 package com.sbnz.physio.facts;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,17 +44,17 @@ public class Patient {
 	@Column(nullable = false)
 	private String surname;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "patient_diagnoses",
 			joinColumns = @JoinColumn(name = "patient_lbo", referencedColumnName = "LBO"),
 			inverseJoinColumns = @JoinColumn(name = "diagnosis_id", referencedColumnName = "id")
 	)
-	private List<Diagnosis> diagnoses = new ArrayList<>();
+	private Set<Diagnosis> diagnoses = new HashSet<>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-	private List<Treatment> treatments = new ArrayList<>();
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Treatment> treatments = new HashSet<>();
 	
 	public void addDiagnosis(Diagnosis diagnosis) {
 		this.diagnoses.add(diagnosis);

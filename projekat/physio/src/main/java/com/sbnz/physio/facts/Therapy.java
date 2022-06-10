@@ -43,7 +43,6 @@ public class Therapy {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@EqualsAndHashCode.Include
 	private Long id;
 
 	@Enumerated(EnumType.STRING)

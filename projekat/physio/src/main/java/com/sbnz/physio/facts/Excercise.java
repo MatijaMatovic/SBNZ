@@ -29,7 +29,6 @@ public class Excercise {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@EqualsAndHashCode.Include
 	private Long id;
 	
 	@Column(nullable = false)

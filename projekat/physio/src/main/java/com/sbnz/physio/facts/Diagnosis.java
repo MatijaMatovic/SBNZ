@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,13 +47,12 @@ public class Diagnosis {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@EqualsAndHashCode.Include
 	private Long id;
 	
 	@Column
 	private LocalDate diagnosisDate;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "pain_id", referencedColumnName = "id")
 	private Pain pain;
 	

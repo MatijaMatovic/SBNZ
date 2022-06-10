@@ -1,7 +1,8 @@
 package com.sbnz.physio.facts;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -43,31 +44,29 @@ public class Treatment {
 	@JoinColumn(name = "patient_lbo", referencedColumnName = "LBO")
 	private Patient patient;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "treatment_therapies", 
 			joinColumns = @JoinColumn(name="treatment_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name="therapy_id", referencedColumnName = "id")
 	)
-	private List<Therapy> therapies = new ArrayList<>();
+	private Set<Therapy> therapies = new HashSet<>();
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "treatment_excercises",
 			joinColumns = @JoinColumn(name = "treatment_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "excercise_id", referencedColumnName = "id")
 	)
-	private List<Excercise> excerciseRoutine = new ArrayList<>();
+	private Set<Excercise> excerciseRoutine = new HashSet<>();
 	
 	
 	
-	public Treatment(Diagnosis diagnosis, Patient patient, List<Therapy> therapies, List<Excercise> excerciseRoutine) {
+	public Treatment(Diagnosis diagnosis, Patient patient) {
 		super();
 		this.id = null;
 		this.diagnosis = diagnosis;
 		this.patient = patient;
-		this.therapies = therapies;
-		this.excerciseRoutine = excerciseRoutine;
 	}
 	
 	public void addExcercise(Excercise excercise) {
