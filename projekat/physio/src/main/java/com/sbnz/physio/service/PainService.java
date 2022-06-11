@@ -27,7 +27,23 @@ public class PainService {
 		this.kieContainer = kieContainer;
 	}
 	
-	public Treatment classifyPain(Pain pain) {
+	public Treatment classifyPain(Pain pain, Patient patient) {
+		KieSession kieSession = kieContainer.newKieSession("physio-rules");
+		
+		Treatment treatment = new Treatment();
+		Diagnosis diagnosis = new Diagnosis();
+		
+		kieSession.insert(patient);
+		kieSession.insert(pain);
+		kieSession.insert(diagnosis);
+		kieSession.insert(treatment);
+		kieSession.fireAllRules();
+		
+		return treatment;
+		
+	}
+	
+	public Treatment testClassifyPain(Pain pain) {
 		KieSession kieSession = kieContainer.newKieSession("physio-rules");
 		
 		

@@ -3,6 +3,16 @@ package com.sbnz.physio.facts;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +22,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Pain {
 	
 	public enum SimplePainIntensity { MILD, MEDIUM, STRONG }
@@ -83,11 +94,25 @@ public class Pain {
 		PROLONGED_DEHIDRATATION
 	}
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Enumerated(EnumType.STRING)
 	private PainType painType;
+	
+	@Enumerated(EnumType.STRING)
 	private PainLocalization painLocalization;
+	
+	@Enumerated(EnumType.STRING)
 	private SimplePainIntensity simplePainIntensity;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@Transient
 	private List<Symptoms> symptoms = new ArrayList<Symptoms>();
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@Transient
 	private List<Precursors>  precursors = new ArrayList<Precursors>();
 	
 

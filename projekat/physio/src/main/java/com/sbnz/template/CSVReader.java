@@ -94,7 +94,7 @@ public class CSVReader {
                
                 for (String t : ther) {
                 	String[] therData = t.split(":");
-                	therapy.add(new Therapy(TherapyType.valueOf(therData[0]), Integer.valueOf(therData[1]),
+                	therapy.add(new Therapy(null, TherapyType.valueOf(therData[0]), Integer.valueOf(therData[1]),
                 			therData[2]));
 				}
                 

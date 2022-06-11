@@ -1,18 +1,24 @@
 package com.sbnz.physio.controller;
 
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import com.sbnz.physio.facts.Diagnosis;
 import com.sbnz.physio.facts.Pain;
+import com.sbnz.physio.facts.Patient;
 import com.sbnz.physio.facts.Treatment;
 import com.sbnz.physio.service.PainService;
+import com.sbnz.physio.service.PatientService;
 
 @RestController
 @RequestMapping("/api/pain")
@@ -20,6 +26,28 @@ public class PainController {
 	
 	@Autowired 
 	PainService painService;
+	
+	@Autowired
+	PatientService patientService;
+	
+	@GetMapping(value = "/diagnose/{lbo}")
+	public ResponseEntity<Treatment> classifyPain(@PathVariable String lbo, @RequestBody Pain pain) {
+		Patient patient;
+		
+		try {
+			patient = patientService.findByLBO(lbo);			
+		}
+		catch (EntityNotFoundException e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+		
+		Treatment treatment = painService.classifyPain(pain, patient);
+		
+		patientService.save(patient); // Jer su mu dodate terapija i dijagnoza u listu
+		
+		return new ResponseEntity<>(treatment, HttpStatus.OK);
+	}
+	
 	
 	@GetMapping(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Treatment> testWorks() {
@@ -117,7 +145,7 @@ public class PainController {
 		//testPain.getPrecursors().add(Pain.Precursors.LACK_PHYSICAL_ACTIVITY);
 		//testPain.getPrecursors().add(Pain.Precursors.BACK_STRAINING_PROFESSION);
 		
-		Treatment treatment = painService.classifyPain(testPain);
+		Treatment treatment = painService.testClassifyPain(testPain);
 		
 		System.out.println("Localized at: " + testPain.getPainLocalization());
 		System.out.println("Type: " + testPain.getPainType());
