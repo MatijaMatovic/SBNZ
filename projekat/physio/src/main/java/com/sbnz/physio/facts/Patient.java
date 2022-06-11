@@ -1,8 +1,7 @@
 package com.sbnz.physio.facts;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,9 +29,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Patient {
+public class Patient implements Serializable{
+	
+	/** Ovo mora iz nekog debilnog razloga */
+	private static final long serialVersionUID = 6756905032990088353L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(nullable = false, unique = true)
