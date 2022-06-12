@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.sbnz.physio.facts.Pain;
 import com.sbnz.physio.facts.Patient;
@@ -30,7 +31,9 @@ public class PainController {
 	@Autowired
 	PatientService patientService;
 	
-	@GetMapping(value = "/diagnose/{lbo}")
+	@PutMapping(value = "/diagnose/{lbo}",
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Treatment> classifyPain(@PathVariable String lbo, @RequestBody Pain pain) {
 		Patient patient;
 		
