@@ -44,7 +44,7 @@ public class Treatment {
 	@JoinColumn(name = "patient_lbo", referencedColumnName = "LBO")
 	private Patient patient;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "treatment_therapies", 
 			joinColumns = @JoinColumn(name="treatment_id", referencedColumnName = "id"),
@@ -52,7 +52,7 @@ public class Treatment {
 	)
 	private Set<Therapy> therapies = new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "treatment_excercises",
 			joinColumns = @JoinColumn(name = "treatment_id", referencedColumnName = "id"),

@@ -14,7 +14,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
 @Role(Role.Type.EVENT)
 public class ExerciseReplacement {
 	private Excercise.Type type;
