@@ -8,6 +8,7 @@
 	
 	<kbase name="cep" packages="com.cep" eventProcessingMode="stream">
 		<ksession name="physio-cep" />
+		<ksession name="physio-cep-pseudoClock" clockType="pseudo"/>
 	</kbase>
    
 </kmodule>

@@ -15,40 +15,45 @@ rule "Dynamic to static"
     when
         $t1: ExcerciseEvent(painType == ExcerciseEvent.PainType.STIFFNESS, type == Excercise.Type.DYNAMIC, $name: name)
     then
-       insert(new ExerciseReplacement(Excercise.Type.STATIC, $name, false));
-       insert(new WorkoutDifficultyEvent());
+        System.out.println("Dynamic to static".toUpperCase());
+        insert(new ExerciseReplacement(Excercise.Type.STATIC, $name, false));
+        insert(new WorkoutDifficultyEvent());
 end
 
 rule "Static to rest"
     when
         $t1: ExcerciseEvent(type == Excercise.Type.STATIC, $name: name)
     then
-       insert(new ExerciseReplacement(Excercise.Type.REST, "Pacijent neka odmori malo", false));
-       insert(new WorkoutDifficultyEvent());
+    	System.out.println("Static to rest".toUpperCase());
+       	insert(new ExerciseReplacement(Excercise.Type.REST, "Pacijent neka odmori malo", false));
+      	insert(new WorkoutDifficultyEvent());
 end
 
 
 rule "Dynamic to rest"
 	when 
 		$t1: ExcerciseEvent(painType == ExcerciseEvent.PainType.PAIN, type == Excercise.Type.DYNAMIC)
-		List (size > 1) from collect ( ExcerciseEvent() over window:time(10m) )
+		List (size > 0) from collect ( ExcerciseEvent(this before $t1) over window:time(10m))
 		not WorkoutDifficultyEvent()
 	then
+		System.out.println("Dynamic to rest".toUpperCase());
 		insert(new ExerciseReplacement(Excercise.Type.REST, "Pacijent neka prekine vezbe", true));
 end
 
 
 rule "Many mild events"
 	when 
-		accumulate(
+		List($brPovreda: size) from collect( 
 			InjuryEvent($injury: this, severity == InjuryEvent.InjurySeverity.MILD) over window:time(20m)
-			and
-			ExhaustionEvent($exhaustion: this) over window:time(20m),
-			$brPovreda: count($injury),
-			$brPremora: count($exhaustion)
+		)
+		List($brPremora: size) from collect(
+			ExhaustionEvent($exhaustion: this) over window:time(20m)
 		)
 		eval($brPovreda + $brPremora > 2)
 	then
+		System.out.println("Many mild events".toUpperCase());
+		System.out.println("Br. povreda: " + $brPovreda);
+		System.out.println("Br. premora: " + $brPremora);
 		insert(new WorkoutDifficultyEvent());
 end		
 
@@ -58,6 +63,7 @@ rule "Dynamic difficulties"
 		$e1: ExcerciseEvent(painType == ExcerciseEvent.PainType.PAIN, type == Excercise.Type.DYNAMIC, $name: name)
 		$e2: WorkoutDifficultyEvent()
 	then
+		System.out.println("Dynamic difficulties".toUpperCase());
 		insert(new ExerciseReplacement(Excercise.Type.STATIC, $name, false));
 end
 
@@ -67,6 +73,7 @@ rule "Dynamic injury - no other difficulties"
 		List (size <= 1) from collect (InjuryEvent())
 		List (size == 0) from collect (ExcerciseEvent())
 	then
+		System.out.println("Dynamic injury - no other difficulties".toUpperCase());
 		insert(new ExerciseReplacement(Excercise.Type.STATIC, $name, false));
 end
 
@@ -76,6 +83,7 @@ rule "Dynamic injury - other difficulties"
 		List (size > 1) from collect (InjuryEvent())
 		List (size > 0) from collect (ExcerciseEvent())
 	then
+		System.out.println("Dynamic injury - other difficulties".toUpperCase());
 		insert(new ExerciseReplacement(Excercise.Type.REST, "Pacijent neka hitno prekine sa vezbanjem", true));
 end
 		
