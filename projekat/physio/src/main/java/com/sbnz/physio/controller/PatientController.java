@@ -53,12 +53,31 @@ public class PatientController {
 		return new ResponseEntity<PatientDTO>(new PatientDTO(saved), HttpStatus.OK);
 	}
 	
-	
-	@GetMapping(value = "/all",
+	@PutMapping(value = "/edit",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE
 	)
-	public ResponseEntity<List<Patient>> editPatient(@RequestBody PatientDTO patientDTO) {
+	public ResponseEntity<PatientDTO> editPatient(@RequestBody PatientDTO patientDTO) {
+		Patient patient;
+		try {
+			patient = patientService.findByLBO(patientDTO.getLBO());
+
+		}
+		catch (EntityNotFoundException e){
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+
+		patient.setName(patientDTO.getName());
+		patient.setSurname(patientDTO.getSurname());
+
+		patient = patientService.save(patient);
+
+		return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/all"
+	)
+	public ResponseEntity<List<Patient>> editPatient() {
 		return new ResponseEntity<>(patientService.findAll(), HttpStatus.OK);
 	}
 
