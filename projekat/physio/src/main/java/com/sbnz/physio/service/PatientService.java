@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sbnz.physio.facts.Patient;
 import com.sbnz.physio.repository.PatientRepository;
-
+import java.util.List;
 @Service
 public class PatientService {
 	
@@ -24,5 +24,9 @@ public class PatientService {
 	
 	public Patient findByLBO(String LBO) {
 		return patientRepository.findByLBO(LBO).orElseThrow(() -> new EntityNotFoundException("No Patient with such LBO"));
+	}
+	
+	public List<Patient> findAll() {
+		return patientRepository.findAll();
 	}
 }

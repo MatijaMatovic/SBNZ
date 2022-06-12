@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.sbnz.physio.dto.PatientDTO;
 import com.sbnz.physio.facts.Patient;
 import com.sbnz.physio.service.PatientService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/patient")
@@ -53,26 +54,12 @@ public class PatientController {
 	}
 	
 	
-	@PutMapping(value = "/edit",
+	@GetMapping(value = "/all",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE
 	)
-	public ResponseEntity<PatientDTO> editPatient(@RequestBody PatientDTO patientDTO) {
-		Patient patient;
-		try {
-			patient = patientService.findByLBO(patientDTO.getLBO());
-			
-		}
-		catch (EntityNotFoundException e){
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-		}
-		
-		patient.setName(patientDTO.getName());
-		patient.setSurname(patientDTO.getSurname());
-		
-		patient = patientService.save(patient);
-		
-		return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
+	public ResponseEntity<List<Patient>> editPatient(@RequestBody PatientDTO patientDTO) {
+		return new ResponseEntity<>(patientService.findAll(), HttpStatus.OK);
 	}
 
 }
