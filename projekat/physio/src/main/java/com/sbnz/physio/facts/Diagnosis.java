@@ -26,7 +26,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
 @Entity
 public class Diagnosis {
 	public enum PainIntensity { MILD, MEDIUM, STRONG, WORSENING }

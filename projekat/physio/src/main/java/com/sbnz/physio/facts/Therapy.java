@@ -19,7 +19,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 public class Therapy {
 	public enum TherapyType { 
