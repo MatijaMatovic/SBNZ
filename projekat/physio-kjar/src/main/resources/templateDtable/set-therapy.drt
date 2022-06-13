@@ -15,6 +15,7 @@ import com.sbnz.physio.facts.Therapy.TherapyType;
 import com.sbnz.physio.facts.*;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 
 
 template "classification-rules"
@@ -30,7 +31,7 @@ when
 	)
 then
 	modify($t) { 
-		setTherapies(Arrays.asList(@{therapy}));
+		setTherapies(new HashSet(Arrays.asList(@{therapy})));
 	}
 	
 end

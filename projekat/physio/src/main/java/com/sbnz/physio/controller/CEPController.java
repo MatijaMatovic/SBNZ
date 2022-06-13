@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,14 +22,14 @@ public class CEPController {
 	CEPService cepService;
 	
 	@PostMapping(value = "/injury", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ExerciseReplacement> reportInjury(InjuryEvent injuryEvent) {
+	public ResponseEntity<ExerciseReplacement> reportInjury(@RequestBody InjuryEvent injuryEvent) {
 		ExerciseReplacement replacement = cepService.registerInjury(injuryEvent);
 		
 		return new ResponseEntity<>(replacement, HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "event", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ExerciseReplacement> reportEvent(ExcerciseEvent excerciseEvent) {
+	@PostMapping(value = "/event", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ExerciseReplacement> reportEvent(@RequestBody ExcerciseEvent excerciseEvent) {
 		ExerciseReplacement replacement = cepService.registerExcerciseEvent(excerciseEvent);
 		
 		return new ResponseEntity<>(replacement, HttpStatus.OK);

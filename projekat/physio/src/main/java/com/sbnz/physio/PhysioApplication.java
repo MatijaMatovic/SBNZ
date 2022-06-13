@@ -7,10 +7,13 @@ import java.util.stream.Collectors;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
 import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 
 import com.sbnz.physio.facts.Pain;
 
@@ -37,6 +40,13 @@ public class PhysioApplication {
 		KieScanner kScanner = ks.newKieScanner(kContainer);
 		kScanner.start(10_000);
 		return kContainer;
+	}
+	
+	
+	@Bean
+	@DependsOn({"kieContainer"})
+	public KieSession cepSession(@Autowired KieContainer kieContainer) {
+		return kieContainer.newKieSession("physio-cep");
 	}
 
 }

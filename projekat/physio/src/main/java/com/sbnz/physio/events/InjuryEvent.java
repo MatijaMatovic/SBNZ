@@ -16,7 +16,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
 @EqualsAndHashCode
 @Role(Role.Type.EVENT)
@@ -26,5 +25,10 @@ public class InjuryEvent {
 	private InjurySeverity severity;
 	private Excercise.Type type;
 	private String name;
+	private boolean isProcessed;
+	
+	public InjuryEvent() {
+		this.isProcessed = false;
+	}
 	
 }

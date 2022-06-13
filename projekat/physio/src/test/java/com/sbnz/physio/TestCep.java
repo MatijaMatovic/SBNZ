@@ -44,6 +44,9 @@ public class TestCep {
 		System.out.println("\nTEST: DYNAMIC TO STATIC");
 		KieSession kieSession = kieContainer.newKieSession("physio-cep");
 		
+		ExerciseReplacement replacement = new ExerciseReplacement();
+		kieSession.insert(replacement);
+		
 		ExcerciseEvent event = new ExcerciseEvent();
 		event.setName("Trbusnjaci");
 		event.setPainType(PainType.STIFFNESS);
@@ -55,11 +58,6 @@ public class TestCep {
 		
 		assertEquals(1, ruleCount);
 		
-		Collection<?> newEvents = kieSession.getObjects(new ClassObjectFilter(ExerciseReplacement.class));
-
-		assertEquals(1, newEvents.size());
-		
-		ExerciseReplacement replacement = (ExerciseReplacement) newEvents.iterator().next();
 		
 		assertEquals(event.getName(), replacement.getName());
 		assertEquals(Type.STATIC, replacement.getType());
@@ -73,6 +71,9 @@ public class TestCep {
 		System.out.println("\nTEST: STATIC TO REST");
 		KieSession kieSession = kieContainer.newKieSession("physio-cep");
 		
+		ExerciseReplacement replacement = new ExerciseReplacement();
+		kieSession.insert(replacement);
+		
 		ExcerciseEvent event = new ExcerciseEvent();
 		event.setName("Trbusnjaci");
 		event.setPainType(PainType.PAIN);
@@ -83,12 +84,6 @@ public class TestCep {
 		int ruleCount = kieSession.fireAllRules();
 		
 		assertEquals(1, ruleCount);
-		
-		Collection<?> newEvents = kieSession.getObjects(new ClassObjectFilter(ExerciseReplacement.class));
-
-		assertEquals(1, newEvents.size());
-		
-		ExerciseReplacement replacement = (ExerciseReplacement) newEvents.iterator().next();
 		
 		assertEquals("Pacijent neka odmori malo", replacement.getName());
 		assertEquals(Type.REST, replacement.getType());
@@ -105,6 +100,8 @@ public class TestCep {
 		KieSession kieSession = kieContainer.newKieSession("physio-cep-pseudoClock");
 		SessionPseudoClock clock = kieSession.getSessionClock();
 		
+		ExerciseReplacement replacement = new ExerciseReplacement();
+		kieSession.insert(replacement);
 		
 		ExcerciseEvent event1 = new ExcerciseEvent();
 		event1.setName("Trbusnjaci1");
@@ -127,12 +124,6 @@ public class TestCep {
 		
 		assertEquals(1, ruleCount);
 		
-		Collection<?> newEvents = kieSession.getObjects(new ClassObjectFilter(ExerciseReplacement.class));
-		
-		assertEquals(1, newEvents.size());
-		
-		ExerciseReplacement replacement = (ExerciseReplacement) newEvents.iterator().next();
-		
 		assertEquals("Pacijent neka prekine vezbe", replacement.getName());
 		assertEquals(Type.REST, replacement.getType());
 		assertEquals(true, replacement.isStopWorkout());
@@ -149,6 +140,8 @@ public class TestCep {
 		KieSession kieSession = kieContainer.newKieSession("physio-cep-pseudoClock");
 		SessionPseudoClock clock = kieSession.getSessionClock();
 		
+		ExerciseReplacement replacement = new ExerciseReplacement();
+		kieSession.insert(replacement);
 		
 		ExcerciseEvent event1 = new ExcerciseEvent();
 		event1.setName("Trbusnjaci1");
@@ -209,6 +202,9 @@ public class TestCep {
 		KieSession kieSession = kieContainer.newKieSession("physio-cep-pseudoClock");
 		SessionPseudoClock clock = kieSession.getSessionClock();
 		
+		ExerciseReplacement replacement = new ExerciseReplacement();
+		kieSession.insert(replacement);
+		
 		InjuryEvent event1 = new InjuryEvent();
 		event1.setSeverity(InjurySeverity.MILD);
 		
@@ -238,10 +234,6 @@ public class TestCep {
 		ruleCount = kieSession.fireAllRules();
 		assertEquals(1, ruleCount);
 		
-		Collection<?> newEvents = kieSession.getObjects(new ClassObjectFilter(ExerciseReplacement.class));
-		assertEquals(1, newEvents.size());
-		
-		ExerciseReplacement replacement = (ExerciseReplacement) newEvents.iterator().next();
 		assertEquals(event4.getName(), replacement.getName());
 		assertEquals(Type.STATIC, replacement.getType());
 		assertEquals(false, replacement.isStopWorkout());
@@ -257,6 +249,9 @@ public class TestCep {
 		System.out.println("\nTEST: DYNAMIC INJURY NO DIFFICULTIES");
 		KieSession kieSession = kieContainer.newKieSession("physio-cep");
 		
+		ExerciseReplacement replacement = new ExerciseReplacement();
+		kieSession.insert(replacement);
+		
 		InjuryEvent event = new InjuryEvent();
 		event.setType(Type.DYNAMIC);
 		event.setSeverity(InjurySeverity.SEVERE);
@@ -267,10 +262,6 @@ public class TestCep {
 		int rulesFired = kieSession.fireAllRules();
 		assertEquals(1, rulesFired);
 		
-		Collection<?> newEvents = kieSession.getObjects(new ClassObjectFilter(ExerciseReplacement.class));
-		assertEquals(1, newEvents.size());
-		
-		ExerciseReplacement replacement = (ExerciseReplacement) newEvents.iterator().next();
 		assertEquals(event.getName(), replacement.getName());
 		assertEquals(Type.STATIC, replacement.getType());
 		assertEquals(false, replacement.isStopWorkout());
@@ -284,6 +275,9 @@ public class TestCep {
 		
 		KieSession kieSession = kieContainer.newKieSession("physio-cep-pseudoClock");
 		SessionPseudoClock clock = kieSession.getSessionClock();
+		
+		ExerciseReplacement replacement = new ExerciseReplacement();
+		kieSession.insert(replacement);
 		
 		InjuryEvent event1 = new InjuryEvent();
 		event1.setSeverity(InjurySeverity.MILD);
@@ -300,19 +294,15 @@ public class TestCep {
 		clock.advanceTime(2, TimeUnit.MINUTES);
 		
 		InjuryEvent injuryEvent = new InjuryEvent();
-		injuryEvent.setType(Type.DYNAMIC);
-		injuryEvent.setSeverity(InjurySeverity.SEVERE);
 		injuryEvent.setName("povreda1");
+		injuryEvent.setSeverity(InjurySeverity.SEVERE);
+		injuryEvent.setType(Type.DYNAMIC);
 		
 		kieSession.insert(injuryEvent);
 		
 		int rulesFired = kieSession.fireAllRules();
 		assertEquals(1, rulesFired);
 		
-		Collection<?> newEvents = kieSession.getObjects(new ClassObjectFilter(ExerciseReplacement.class));
-		assertEquals(1, newEvents.size());
-		
-		ExerciseReplacement replacement = (ExerciseReplacement) newEvents.iterator().next();
 		assertEquals("Pacijent neka hitno prekine sa vezbanjem", replacement.getName());
 		assertEquals(Type.REST, replacement.getType());
 		assertEquals(true, replacement.isStopWorkout());
