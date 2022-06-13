@@ -13,31 +13,49 @@ end
 
 rule "Dynamic to static"
     when
-        $t1: ExcerciseEvent(painType == ExcerciseEvent.PainType.STIFFNESS, type == Excercise.Type.DYNAMIC, $name: name)
+    	$rep: ExerciseReplacement(name == null)
+        $t1: ExcerciseEvent(processed == false, painType == ExcerciseEvent.PainType.STIFFNESS, type == Excercise.Type.DYNAMIC, $name: name)
     then
         System.out.println("Dynamic to static".toUpperCase());
-        insert(new ExerciseReplacement(Excercise.Type.STATIC, $name, false));
+        modify ($rep) {
+        	setType(Excercise.Type.STATIC),
+        	setName($name),
+        	setStopWorkout(false);
+        }
+        modify($t1) { setProcessed(true); }
         insert(new WorkoutDifficultyEvent());
 end
 
 rule "Static to rest"
     when
-        $t1: ExcerciseEvent(type == Excercise.Type.STATIC, $name: name)
+    	$rep: ExerciseReplacement(name == null)
+        $t1: ExcerciseEvent(processed == false, type == Excercise.Type.STATIC, $name: name)
     then
     	System.out.println("Static to rest".toUpperCase());
-       	insert(new ExerciseReplacement(Excercise.Type.REST, "Pacijent neka odmori malo", false));
+    	modify ($rep) {
+        	setType(Excercise.Type.REST),
+        	setName("Pacijent neka odmori malo"),
+        	setStopWorkout(false);
+        }
+        modify($t1) { setProcessed(true); }
       	insert(new WorkoutDifficultyEvent());
 end
 
 
 rule "Dynamic to rest"
 	when 
-		$t1: ExcerciseEvent(painType == ExcerciseEvent.PainType.PAIN, type == Excercise.Type.DYNAMIC)
+		$rep: ExerciseReplacement(name == null)
+		$t1: ExcerciseEvent(processed == false, painType == ExcerciseEvent.PainType.PAIN, type == Excercise.Type.DYNAMIC)
 		List (size > 0) from collect ( ExcerciseEvent(this before $t1) over window:time(10m))
 		not WorkoutDifficultyEvent()
 	then
 		System.out.println("Dynamic to rest".toUpperCase());
-		insert(new ExerciseReplacement(Excercise.Type.REST, "Pacijent neka prekine vezbe", true));
+		modify ($rep) {
+        	setType(Excercise.Type.REST),
+        	setName("Pacijent neka prekine vezbe"),
+        	setStopWorkout(true);
+        }
+        modify($t1) { setProcessed(true); }
 end
 
 
@@ -60,31 +78,49 @@ end
 
 rule "Dynamic difficulties"
 	when 
-		$e1: ExcerciseEvent(painType == ExcerciseEvent.PainType.PAIN, type == Excercise.Type.DYNAMIC, $name: name)
+		$rep: ExerciseReplacement(name == null)
+		$e1: ExcerciseEvent(processed == false, painType == ExcerciseEvent.PainType.PAIN, type == Excercise.Type.DYNAMIC, $name: name)
 		$e2: WorkoutDifficultyEvent()
 	then
 		System.out.println("Dynamic difficulties".toUpperCase());
-		insert(new ExerciseReplacement(Excercise.Type.STATIC, $name, false));
+		modify ($rep) {
+        	setType(Excercise.Type.STATIC),
+        	setName($name),
+        	setStopWorkout(false);
+        }
+        modify($e1) { setProcessed(true); }
 end
 
 rule "Dynamic injury - no other difficulties"
 	when 
-		$e1: InjuryEvent(severity == InjuryEvent.Severity.SEVERE, type == Excercise.Type.DYNAMIC, $name: name)
+		$rep: ExerciseReplacement(name == null)
+		$e1: InjuryEvent(processed == false, severity == InjuryEvent.InjurySeverity.SEVERE, type == Excercise.Type.DYNAMIC, $name: name)
 		List (size <= 1) from collect (InjuryEvent())
 		List (size == 0) from collect (ExcerciseEvent())
 	then
 		System.out.println("Dynamic injury - no other difficulties".toUpperCase());
-		insert(new ExerciseReplacement(Excercise.Type.STATIC, $name, false));
+		modify ($rep) {
+        	setType(Excercise.Type.STATIC),
+        	setName($name),
+        	setStopWorkout(false);
+        }
+        modify($e1) { setProcessed(true); }
 end
 
 rule "Dynamic injury - other difficulties"
 	when 
-		$e1: InjuryEvent(severity == InjuryEvent.Severity.SEVERE, type == Excercise.Type.DYNAMIC)
-		List (size > 1) from collect (InjuryEvent())
+		$rep: ExerciseReplacement(name == null)
+		$e1: InjuryEvent(processed == false, severity == InjuryEvent.InjurySeverity.SEVERE, type == Excercise.Type.DYNAMIC)
+		List (size > 0) from collect (InjuryEvent(this before $e1))
 		List (size > 0) from collect (ExcerciseEvent())
 	then
 		System.out.println("Dynamic injury - other difficulties".toUpperCase());
-		insert(new ExerciseReplacement(Excercise.Type.REST, "Pacijent neka hitno prekine sa vezbanjem", true));
+		modify ($rep) {
+        	setType(Excercise.Type.REST),
+        	setName("Pacijent neka hitno prekine sa vezbanjem"),
+        	setStopWorkout(true);
+        }
+        modify($e1) { setProcessed(true); }
 end
 		
 		

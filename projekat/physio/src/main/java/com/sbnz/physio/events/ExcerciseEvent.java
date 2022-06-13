@@ -17,7 +17,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
 @EqualsAndHashCode
 @Role(Role.Type.EVENT)
@@ -27,4 +26,9 @@ public class ExcerciseEvent {
 	private PainType painType;
 	private Excercise.Type type;
 	private String name;
+	private boolean isProcessed;
+	
+	public ExcerciseEvent() {
+		this.isProcessed = false;
+	}
 }
