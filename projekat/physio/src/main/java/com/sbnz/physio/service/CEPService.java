@@ -36,5 +36,6 @@ public class CEPService {
 	
 	public void registerExhaustion() {
 		kieSession.insert(new ExhaustionEvent());
+		kieSession.fireAllRules();
 	}
 }
